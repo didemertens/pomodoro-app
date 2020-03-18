@@ -1,26 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+class App extends React.Component {
+  state = {
+    minutes: 25,
+    seconds: 0
+  }
+
+  handleClick = () => {
+    this.timeInterval = setInterval(() => {
+      const { seconds, minutes } = this.state
+      if (seconds > 0) {
+        this.setState(({ seconds }) => ({
+          seconds: seconds - 1
+        }))
+      }
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(this.timeInterval)
+        } else {
+          this.setState(({ minutes }) => ({
+            minutes: minutes - 1,
+            seconds: 59
+          }))
+        }
+      }
+    }, 1000)
+  }
+
+  render() {
+    return (
+      <div data-test="component-app">
+        <h1>Pomodoro</h1>
+        <h4 data-test="time-display">{`${this.state.minutes}:${this.state.seconds.toString().length <= 1 ? `0${this.state.seconds}` : this.state.seconds}`}</h4>
+        <button
+          data-test="start-button"
+          onClick={this.handleClick}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          Start</button>
+      </div>
+    )
+  }
 }
 
 export default App;
