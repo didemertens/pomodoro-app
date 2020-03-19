@@ -3,14 +3,12 @@ import Enzyme, { shallow } from 'enzyme';
 import EnzymeAdapater from 'enzyme-adapter-react-16'
 import App from './App';
 
+import findByTestAttr from '../test/testUtils'
+
 Enzyme.configure({ adapter: new EnzymeAdapater() })
 
 const setup = (props = {}, state = null) => {
   return shallow(<App />)
-}
-
-const findByTestAttr = (wrapper, val) => {
-  return wrapper.find(`[data-test="${val}"]`)
 }
 
 // fake timers for setInterval
