@@ -3,7 +3,7 @@ import Enzyme, { shallow } from 'enzyme';
 import EnzymeAdapater from 'enzyme-adapter-react-16'
 import App from './App';
 
-import findByTestAttr from '../test/testUtils'
+import { findByTestAttr } from '../test/testUtils'
 
 Enzyme.configure({ adapter: new EnzymeAdapater() })
 

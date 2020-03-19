@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Timeup = ({ timeUp }) => {
   return (
@@ -11,6 +12,10 @@ const Timeup = ({ timeUp }) => {
       }
     </div>
   )
+}
+
+Timeup.propTypes = {
+  timeUp: PropTypes.bool.isRequired,
 }
 
 export default Timeup

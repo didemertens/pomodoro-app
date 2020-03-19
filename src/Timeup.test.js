@@ -2,14 +2,18 @@ import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
 
-import findByTestAttr from '../test/testUtils'
+import { findByTestAttr } from '../test/testUtils'
+import { checkProps } from '../test/testUtils'
 import Timeup from './Timeup'
 
 Enzyme.configure({ adapter: new EnzymeAdapter() })
 
 // factory function to create a shallow wrapper for the timeup component
+const defaultProps = { timeUp: false }
+
 const setup = (props = {}) => {
-  return shallow(<Timeup {...props} />)
+  const setupProps = { ...defaultProps, ...props }
+  return shallow(<Timeup {...setupProps} />)
 }
 
 test('renders without error', () => {
@@ -28,4 +32,9 @@ test('renders non-empty message when timeUp prop is true', () => {
   const wrapper = setup({ timeUp: true })
   const message = findByTestAttr(wrapper, 'timeup-message')
   expect(message.text().length).not.toBe(0)
+})
+
+test('does not throw a warning with expected props', () => {
+  const expectedProps = { timeUp: false }
+  checkProps(Timeup, expectedProps)
 })
