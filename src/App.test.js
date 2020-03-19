@@ -1,11 +1,8 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import EnzymeAdapater from 'enzyme-adapter-react-16'
+import { shallow } from 'enzyme';
 import App from './App';
 
 import { findByTestAttr } from '../test/testUtils'
-
-Enzyme.configure({ adapter: new EnzymeAdapater() })
 
 const setup = (props = {}, state = null) => {
   return shallow(<App />)
