@@ -7,32 +7,39 @@ class App extends React.Component {
   state = {
     minutes: 25,
     seconds: 0,
+    startClicked: false,
     timeUp: false
   }
 
   handleClick = () => {
-    this.timeInterval = setInterval(() => {
-      const { seconds, minutes } = this.state
-      if (seconds > 0) {
-        this.setState(({ seconds }) => ({
-          seconds: seconds - 1
-        }))
-      }
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(this.timeInterval)
-          this.setState({ timeUp: true })
-        } else {
-          this.setState(({ minutes }) => ({
-            minutes: minutes - 1,
-            seconds: 59
+    if (!this.state.startClicked) {
+      this.timeInterval = setInterval(() => {
+        const { seconds, minutes } = this.state
+        if (seconds > 0) {
+          this.setState(({ seconds }) => ({
+            seconds: seconds - 1
           }))
         }
-      }
-    }, 1000)
+        if (seconds === 0) {
+          if (minutes === 0) {
+            clearInterval(this.timeInterval)
+            this.setState({ timeUp: true })
+          } else {
+            this.setState(({ minutes }) => ({
+              minutes: minutes - 1,
+              seconds: 59
+            }))
+          }
+        }
+      }, 1000)
+    } else {
+      clearInterval(this.timeInterval)
+    }
+    this.setState({ startClicked: !this.state.startClicked })
   }
 
   render() {
+    const { startClicked, timeUp } = this.state
     return (
       <div data-test="component-app">
         <h1>Pomodoro</h1>
@@ -41,8 +48,13 @@ class App extends React.Component {
           data-test="start-button"
           onClick={this.handleClick}
         >
-          Start</button>
-        <Timeup timeUp={this.state.timeUp} />
+          {startClicked
+            ?
+            'Pause'
+            :
+            'Start'}
+        </button>
+        <Timeup timeUp={timeUp} />
       </div>
     )
   }
