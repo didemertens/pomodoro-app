@@ -14,6 +14,11 @@ class App extends React.Component {
   }
 
   handleClick = () => {
+    if (this.state.timeUp) {
+      this.setState({ minutes: 25 })
+      this.setState({ seconds: 0 })
+      this.setState({ timeUp: false })
+    }
     if (!this.state.startClicked) {
       this.timeInterval = setInterval(() => {
         const { seconds, minutes } = this.state
@@ -25,6 +30,7 @@ class App extends React.Component {
         if (seconds === 0) {
           if (minutes === 0) {
             clearInterval(this.timeInterval)
+            this.setState({ startClicked: false })
             this.setState({ timeUp: true })
             this.setState({ pomodoros: this.state.pomodoros + 1 })
           } else {
