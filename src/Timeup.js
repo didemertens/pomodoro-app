@@ -13,12 +13,12 @@ const Timeup = ({ timeUp, pomodoros }) => {
               ?
               <>
                 <p data-test="timeup-message">Time for a long break!'</p>
-                <BreakTimer />
+                <BreakTimer pomodoros={pomodoros} />
               </>
               :
               <>
                 <p data-test="timeup-message">Time for a short break!</p>
-                <BreakTimer />
+                <BreakTimer pomodoros={pomodoros} />
               </>
           }
         </>
