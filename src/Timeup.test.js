@@ -6,7 +6,7 @@ import { checkProps } from '../test/testUtils'
 import Timeup from './Timeup'
 
 // factory function to create a shallow wrapper for the timeup component
-const defaultProps = { timeUp: false }
+const defaultProps = { timeUp: false, pomodoros: 0 }
 
 const setup = (props = {}) => {
   const setupProps = { ...defaultProps, ...props }
@@ -34,4 +34,16 @@ test('renders non-empty message when timeUp prop is true', () => {
 test('does not throw a warning with expected props', () => {
   const expectedProps = { timeUp: false }
   checkProps(Timeup, expectedProps)
+})
+
+test('if amount of pomodoros is not divisible by 4, say it is time for a SHORT break', () => {
+  const wrapper = setup({ timeUp: true, pomodoros: 1 })
+  const message = findByTestAttr(wrapper, 'timeup-message')
+  expect(message.text()).toContain('short')
+})
+
+test('if amount of pomodoros is divisible by 4, say it is time for a LONG break', () => {
+  const wrapper = setup({ timeUp: true, pomodoros: 4 })
+  const message = findByTestAttr(wrapper, 'timeup-message')
+  expect(message.text()).toContain('long')
 })

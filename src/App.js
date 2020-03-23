@@ -50,7 +50,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { startClicked, timeUp } = this.state
+    const { startClicked, timeUp, pomodoros } = this.state
     return (
       <div data-test="component-app">
         <h1>Pomodoro</h1>
@@ -71,7 +71,10 @@ class App extends React.Component {
         >
           Reset
         </button>
-        <Timeup timeUp={timeUp} />
+        <Timeup
+          timeUp={timeUp}
+          pomodoros={pomodoros}
+        />
       </div>
     )
   }
