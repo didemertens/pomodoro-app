@@ -11,16 +11,11 @@ const Timeup = ({ timeUp, pomodoros }) => {
           {
             pomodoros % 4 === 0
               ?
-              <>
-                <p data-test="timeup-message">Time for a long break!'</p>
-                <BreakTimer pomodoros={pomodoros} />
-              </>
+              <p data-test="timeup-message">Time for a long break!'</p>
               :
-              <>
-                <p data-test="timeup-message">Time for a short break!</p>
-                <BreakTimer pomodoros={pomodoros} />
-              </>
+              <p data-test="timeup-message">Time for a short break!</p>
           }
+          <BreakTimer pomodoros={pomodoros} />
         </>
         :
         ''
