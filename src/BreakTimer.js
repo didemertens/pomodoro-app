@@ -5,11 +5,12 @@ class BreakTimer extends React.Component {
   state = {
     minutes: 0,
     seconds: 0,
-    startClicked: false
+    startClicked: false,
+    breakOver: false
   }
 
   componentDidMount() {
-    if (this.props.pomodoros % 4 === 0) {
+    if ((this.props.pomodoros + 1) % 4 === 0) {
       this.setState({ minutes: 30 })
     } else {
       this.setState({ minutes: 5 })
@@ -29,6 +30,7 @@ class BreakTimer extends React.Component {
           if (minutes === 0) {
             clearInterval(this.timeInterval)
             this.setState({ startClicked: false })
+            this.setState({ breakOver: true })
           } else {
             this.setState(({ minutes }) => ({
               minutes: minutes - 1,
@@ -44,22 +46,25 @@ class BreakTimer extends React.Component {
   }
 
   render() {
-    const { startClicked, minutes, seconds } = this.state
+    const { startClicked, minutes, seconds, breakOver } = this.state
     return (
       <div data-test="component-breaktimer">
         <div data-test="display-timer">
           {`${minutes}:${seconds.toString().length <= 1 ? `0${seconds}` : seconds}`}
         </div>
-        <button
-          data-test="start-button"
-          onClick={this.handleClick}
-        >
-          {startClicked
-            ?
-            'Pause'
-            :
-            'Start'}
-        </button>
+        {
+          !breakOver &&
+          <button
+            data-test="start-button"
+            onClick={this.handleClick}
+          >
+            {startClicked
+              ?
+              'Pause'
+              :
+              'Start'}
+          </button>
+        }
       </div>
     )
   }

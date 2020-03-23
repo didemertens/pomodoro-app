@@ -35,7 +35,7 @@ test('minutes is set to 5 when pomodoros is not divisible by 4', () => {
 })
 
 test('minutes is set to 30 when pomodoros is by 4', () => {
-  const wrapper = setup({ pomodoros: 8 })
+  const wrapper = setup({ pomodoros: 7 })
   const minutesState = wrapper.state('minutes')
   expect(minutesState).toBe(30)
 })
@@ -69,6 +69,19 @@ test('time stops when clicking start button twice', () => {
   startButton.simulate('click')
   const displayTimer = findByTestAttr(wrapper, 'display-timer')
   expect(displayTimer.text()).toContain('4:55')
+})
+
+test('when break time is over, do not show start button', () => {
+  const wrapper = setup({ pomodoros: 1 })
+
+  // find button and click, advance by 5 minutes
+  const startButton = findByTestAttr(wrapper, 'start-button')
+  startButton.simulate('click')
+  jest.advanceTimersByTime(5000000)
+
+  // check if start button has been hidden
+  const hiddenStartBtn = findByTestAttr(wrapper, 'start-button')
+  expect(hiddenStartBtn.length).toBe(0)
 })
 
 test('does not throw a warning with expected props', () => {
