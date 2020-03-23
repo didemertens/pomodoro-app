@@ -52,3 +52,26 @@ test('time decreases by 1 second when clicking start button', () => {
   const displayTimer = findByTestAttr(wrapper, 'display-timer')
   expect(displayTimer.text()).toContain('4:59')
 })
+
+test('time stops when clicking start button twice', () => {
+  const wrapper = setup({ pomodoros: 1 })
+
+  // find button and click
+  const startButton = findByTestAttr(wrapper, 'start-button')
+  startButton.simulate('click')
+
+  // click once after 5 seconds
+  jest.advanceTimersByTime(5000)
+  startButton.simulate('click')
+
+  // click second time and check value after 10 seconds on display
+  jest.advanceTimersByTime(5000)
+  startButton.simulate('click')
+  const displayTimer = findByTestAttr(wrapper, 'display-timer')
+  expect(displayTimer.text()).toContain('4:55')
+})
+
+test('does not throw a warning with expected props', () => {
+  const expectedProps = { pomodoros: 3 }
+  checkProps(BreakTimer, expectedProps)
+})

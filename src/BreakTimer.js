@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class BreakTimer extends React.Component {
   state = {
@@ -62,6 +63,10 @@ class BreakTimer extends React.Component {
       </div>
     )
   }
+}
+
+BreakTimer.propTypes = {
+  pomodoros: PropTypes.number.isRequired,
 }
 
 export default BreakTimer
