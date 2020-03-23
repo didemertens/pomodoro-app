@@ -6,7 +6,9 @@ const Timeup = ({ timeUp }) => {
     <div data-test="component-timeup">
       {timeUp
         ?
-        <p data-test="timeup-message">Time is up!</p>
+        <>
+          <p data-test="timeup-message">Time for a break!</p>
+        </>
         :
         ''
       }

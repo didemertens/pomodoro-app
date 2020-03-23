@@ -66,3 +66,53 @@ test('time stops when clicking start button twice', () => {
   const timeDisplay = findByTestAttr(wrapper, 'time-display')
   expect(timeDisplay.text()).toContain('24:55')
 })
+
+test('time resets when reset button is clicked', () => {
+  const wrapper = setup()
+
+  //find start button and click, advance time by 5 seconds
+  const startButton = findByTestAttr(wrapper, 'start-button')
+  startButton.simulate('click')
+  jest.advanceTimersByTime(5000)
+
+  // find reset button and click
+  const resetButton = findByTestAttr(wrapper, 'reset-button')
+  resetButton.simulate('click')
+
+  // check if value of time is 25 again
+  const minuteState = wrapper.state('minutes')
+  const secondState = wrapper.state('seconds')
+  expect(minuteState).toBe(25)
+  expect(secondState).toBe(0)
+})
+
+test('time does not continue after reset button is clicked', () => {
+  const wrapper = setup()
+
+  //find start button and click, advance time by 5 seconds
+  const startButton = findByTestAttr(wrapper, 'start-button')
+  startButton.simulate('click')
+  jest.advanceTimersByTime(5000)
+
+  // find reset button and click, afvance by 5 seconds
+  const resetButton = findByTestAttr(wrapper, 'reset-button')
+  resetButton.simulate('click')
+  jest.advanceTimersByTime(5000)
+
+  // check if time display is 25:00
+  const timeDisplay = findByTestAttr(wrapper, 'time-display')
+  expect(timeDisplay.text()).toContain('25:00')
+})
+
+test('amount of pomodoros is increased by 1 after timer is finished', () => {
+  const wrapper = setup()
+
+  //find start button and click, advance time by 25 minutes
+  const startButton = findByTestAttr(wrapper, 'start-button')
+  startButton.simulate('click')
+  jest.advanceTimersByTime(2500000)
+
+  // check state of pomodoros
+  const pomodorosState = wrapper.state('pomodoros')
+  expect(pomodorosState).toBe(1)
+})

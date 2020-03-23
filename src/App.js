@@ -8,7 +8,9 @@ class App extends React.Component {
     minutes: 25,
     seconds: 0,
     startClicked: false,
-    timeUp: false
+    timeUp: false,
+    pomodoros: 0,
+    timeInterval: null
   }
 
   handleClick = () => {
@@ -24,6 +26,7 @@ class App extends React.Component {
           if (minutes === 0) {
             clearInterval(this.timeInterval)
             this.setState({ timeUp: true })
+            this.setState({ pomodoros: this.state.pomodoros + 1 })
           } else {
             this.setState(({ minutes }) => ({
               minutes: minutes - 1,
@@ -36,6 +39,14 @@ class App extends React.Component {
       clearInterval(this.timeInterval)
     }
     this.setState({ startClicked: !this.state.startClicked })
+    this.setState({ timeInterval: this.timeInterval })
+  }
+
+  handleReset = () => {
+    this.setState({ minutes: 25 })
+    this.setState({ seconds: 0 })
+    this.setState({ startClicked: false })
+    clearInterval(this.state.timeInterval)
   }
 
   render() {
@@ -53,6 +64,12 @@ class App extends React.Component {
             'Pause'
             :
             'Start'}
+        </button>
+        <button
+          data-test="reset-button"
+          onClick={this.handleReset}
+        >
+          Reset
         </button>
         <Timeup timeUp={timeUp} />
       </div>
