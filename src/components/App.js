@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Timeup from './Timeup';
+import PomTimer from './PomTimer';
 
 class App extends React.Component {
   state = {
@@ -58,29 +59,32 @@ class App extends React.Component {
     const { startClicked, timeUp, pomodoros } = this.state
     return (
       <div data-test="component-app">
-        <h1>Pomodoro</h1>
-        <h4 data-test="time-display">{`${this.state.minutes}:${this.state.seconds.toString().length <= 1 ? `0${this.state.seconds}` : this.state.seconds}`}</h4>
-        <button
-          data-test="start-button"
-          onClick={this.handleClick}
-        >
-          {startClicked
-            ?
-            'Pause'
-            :
-            'Start'}
-        </button>
-        <button
-          data-test="reset-button"
-          onClick={this.handleReset}
-        >
-          Reset
-        </button>
-        <Timeup
-          timeUp={timeUp}
-          pomodoros={pomodoros}
-        />
+        <PomTimer />
       </div>
+      // <div data-test="component-app">
+      //   <h1>Pomodoro</h1>
+      //   <h4 data-test="time-display">{`${this.state.minutes}:${this.state.seconds.toString().length <= 1 ? `0${this.state.seconds}` : this.state.seconds}`}</h4>
+      //   <button
+      //     data-test="start-button"
+      //     onClick={this.handleClick}
+      //   >
+      //     {startClicked
+      //       ?
+      //       'Pause'
+      //       :
+      //       'Start'}
+      //   </button>
+      //   <button
+      //     data-test="reset-button"
+      //     onClick={this.handleReset}
+      //   >
+      //     Reset
+      //   </button>
+      //   <Timeup
+      //     timeUp={timeUp}
+      //     pomodoros={pomodoros}
+      //   />
+      // </div>
     )
   }
 }
