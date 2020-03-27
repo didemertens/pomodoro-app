@@ -7,8 +7,12 @@ import PomTimer from './PomTimer'
 const App = (props) => {
   return (
     <div data-test="component-app">
-      <PomTimer />
-      {props.timeUp &&
+      <h1>Pomodoro</h1>
+      {'🍅'.repeat(props.pomodoros)}
+      {props.breakOver && 'Break over. Time to get back to work!'}
+      {!props.timeUp ?
+        <PomTimer />
+        :
         <Timeup />
       }
     </div>
@@ -17,7 +21,9 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    timeUp: state.timeUp
+    timeUp: state.timeUp,
+    pomodoros: state.pomodoros,
+    breakOver: state.breakOver
   }
 }
 

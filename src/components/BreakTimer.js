@@ -1,77 +1,86 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { clickStart, decreaseMinutes, decreaseSeconds, setTimeUp, setBreakTime } from '../actions'
 
 class BreakTimer extends React.Component {
-  state = {
-    minutes: 0,
-    seconds: 0,
-    startClicked: false,
-    breakOver: false
-  }
-
   componentDidMount() {
     if ((this.props.pomodoros + 1) % 4 === 0) {
-      this.setState({ minutes: 30 })
+      this.props.decreaseMinutes(30)
     } else {
-      this.setState({ minutes: 5 })
+      // ! change to 5 later
+      this.props.decreaseMinutes(0)
     }
   }
 
-  handleClick = () => {
-    if (!this.state.startClicked) {
+  handleTimer = () => {
+    if (!this.props.startTimer) {
       this.timeInterval = setInterval(() => {
-        const { seconds, minutes } = this.state
+        const { seconds, minutes } = this.props
         if (seconds > 0) {
-          this.setState(({ seconds }) => ({
-            seconds: seconds - 1
-          }))
+          this.props.decreaseSeconds(this.props.seconds - 1)
         }
         if (seconds === 0) {
           if (minutes === 0) {
+            this.props.clickStart(this.props.startTimer)
+            // ! reset time later
+            this.props.decreaseMinutes(0)
+            this.props.decreaseSeconds(2)
+            this.props.setTimeUp(false)
+            this.props.setBreakTime(true)
             clearInterval(this.timeInterval)
-            this.setState({ startClicked: false })
-            this.setState({ breakOver: true })
           } else {
-            this.setState(({ minutes }) => ({
-              minutes: minutes - 1,
-              seconds: 59
-            }))
+            this.props.decreaseMinutes(this.props.minutes - 1)
+            this.props.decreaseSeconds(59)
           }
         }
       }, 1000)
     } else {
       clearInterval(this.timeInterval)
     }
-    this.setState({ startClicked: !this.state.startClicked })
   }
 
   render() {
-    const { startClicked, minutes, seconds, breakOver } = this.state
     return (
       <div data-test="component-breaktimer">
+        <h1>Timer</h1>
         <div data-test="display-timer">
-          {`${minutes}:${seconds.toString().length <= 1 ? `0${seconds}` : seconds}`}
+          {`${this.props.minutes}:${this.props.seconds.toString().length <= 1 ? `0${this.props.seconds}` : this.props.seconds}`}
         </div>
-        {
-          !breakOver &&
-          <button
-            data-test="start-button"
-            onClick={this.handleClick}
-          >
-            {startClicked
-              ?
-              'Pause'
-              :
-              'Start'}
-          </button>
-        }
+        <button
+          data-test="start-button"
+          onClick={() => { this.props.clickStart(this.props.startTimer); this.handleTimer() }}
+        >
+          {this.props.startTimer
+            ?
+            'Pause'
+            :
+            'Start'}
+        </button>
       </div>
     )
   }
 }
 
-BreakTimer.propTypes = {
-  pomodoros: PropTypes.number.isRequired,
-}
+// BreakTimer.propTypes = {
+//   pomodoros: PropTypes.number.isRequired,
+// }
 
-export default BreakTimer
+const mapStateToProps = (state) => {
+  return {
+    minutes: state.minutes,
+    seconds: state.seconds,
+    pomodoros: state.pomodoros,
+    startTimer: state.startTimer
+  }
+}
+export default connect(
+  mapStateToProps,
+  {
+    clickStart,
+    decreaseMinutes,
+    decreaseSeconds,
+    setTimeUp,
+    setBreakTime
+  })
+  (BreakTimer)

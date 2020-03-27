@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux'
 
+// ! change default minutes and seconds later
+
 const minutesReducer = (minutes = 0, action) => {
   if (action.type === 'DECREASE_MINUTES') {
     return action.payload
@@ -14,7 +16,8 @@ const secondsReducer = (seconds = 2, action) => {
   return seconds
 }
 
-const timeUpReducer = (timeUp = false, action) => {
+// ! Change to false
+const timeUpReducer = (timeUp = true, action) => {
   if (action.type === 'SET_TIMEUP') {
     return action.payload
   }
@@ -35,10 +38,18 @@ const pomodorosReducer = (pomodoros = 0, action) => {
   return pomodoros
 }
 
+const breakOverReducer = (breakOver = false, action) => {
+  if (action.type === 'SET_BREAKOVER') {
+    return action.payload
+  }
+  return breakOver
+}
+
 export default combineReducers({
   minutes: minutesReducer,
   seconds: secondsReducer,
   startTimer: clickButtonReducer,
   timeUp: timeUpReducer,
-  pomodoros: pomodorosReducer
+  pomodoros: pomodorosReducer,
+  breakOver: breakOverReducer
 })

@@ -33,3 +33,10 @@ export const setPomodoros = (pomodoros) => {
     payload: pomodoros
   }
 }
+
+export const setBreakTime = (breakOver) => {
+  return {
+    type: 'SET_BREAKOVER',
+    payload: breakOver
+  }
+} 

@@ -1,17 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { clickStart, decreaseMinutes, decreaseSeconds, setTimeUp, setPomodoros } from '../actions'
+import { clickStart, decreaseMinutes, decreaseSeconds, setTimeUp, setPomodoros, setBreakTime } from '../actions'
 
 class PomTimer extends React.Component {
-
-  // handleReset = () => {
-  //   this.setState({ minutes: 25 })
-  //   this.setState({ seconds: 0 })
-  //   this.setState({ startClicked: false })
-  //   clearInterval(this.state.timeInterval)
-  // }
-
   handleTimer = () => {
+    this.props.setBreakTime(false)
     if (!this.props.startTimer) {
       this.props.setTimeUp(false)
       this.timeInterval = setInterval(() => {
@@ -24,6 +17,7 @@ class PomTimer extends React.Component {
             this.props.setTimeUp(true)
             this.props.clickStart(this.props.startTimer)
             this.props.setPomodoros(this.props.pomodoros + 1)
+            // ! change time later
             this.props.decreaseMinutes(0)
             this.props.decreaseSeconds(2)
             clearInterval(this.timeInterval)
@@ -36,15 +30,20 @@ class PomTimer extends React.Component {
     } else {
       clearInterval(this.timeInterval)
     }
-    // this.setState({ timeInterval: this.timeInterval })
+  }
+
+  handleReset = () => {
+    // ! change time later
+    this.props.decreaseMinutes(0)
+    this.props.decreaseSeconds(2)
+    this.props.clickStart(this.props.startTimer)
+    clearInterval(this.timeInterval)
   }
 
   render() {
     console.log(this.props)
     return (
       <div data-test="pomtimer-component">
-        <h1>Pomodoro</h1>
-        {'🍅'.repeat(this.props.pomodoros)}
         <p data-test="time-display">{`${this.props.minutes}:${this.props.seconds.toString().length <= 1 ? `0${this.props.seconds}` : this.props.seconds}`}</p>
         <button
           data-test="start-button"
@@ -73,7 +72,8 @@ const mapStateToProps = (state) => {
     seconds: state.seconds,
     startTimer: state.startTimer,
     timeUp: state.timeUp,
-    pomodoros: state.pomodoros
+    pomodoros: state.pomodoros,
+    breakTimer: state.breakTimer
   }
 }
 
@@ -84,6 +84,7 @@ export default connect
       decreaseMinutes,
       decreaseSeconds,
       setTimeUp,
-      setPomodoros
+      setPomodoros,
+      setBreakTime
     })
   (PomTimer)
