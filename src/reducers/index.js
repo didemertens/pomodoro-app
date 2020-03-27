@@ -1,11 +1,24 @@
 import { combineReducers } from 'redux'
 
-const minutesReducer = (minutes = 25) => {
+const minutesReducer = (minutes = 0, action) => {
+  if (action.type === 'DECREASE_MINUTES') {
+    return action.payload
+  }
   return minutes
 }
 
-const secondsReducer = (seconds = 0) => {
+const secondsReducer = (seconds = 2, action) => {
+  if (action.type === 'DECREASE_SECONDS') {
+    return action.payload
+  }
   return seconds
+}
+
+const timeUpReducer = (timeUp = false, action) => {
+  if (action.type === 'SET_TIMEUP') {
+    return action.payload
+  }
+  return timeUp
 }
 
 const clickButtonReducer = (buttonClicked = false, action) => {
@@ -15,8 +28,17 @@ const clickButtonReducer = (buttonClicked = false, action) => {
   return buttonClicked
 }
 
+const pomodorosReducer = (pomodoros = 0, action) => {
+  if (action.type === 'SET_POMODOROS') {
+    return action.payload
+  }
+  return pomodoros
+}
+
 export default combineReducers({
   minutes: minutesReducer,
   seconds: secondsReducer,
-  startTimer: clickButtonReducer
+  startTimer: clickButtonReducer,
+  timeUp: timeUpReducer,
+  pomodoros: pomodorosReducer
 })

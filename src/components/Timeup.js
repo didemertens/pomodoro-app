@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import BreakTimer from './BreakTimer'
 
-const Timeup = ({ timeUp, pomodoros }) => {
+const Timeup = () => {
   return (
     <div data-test="component-timeup">
-      {timeUp
+      <p>Break time</p>
+      {/* {timeUp
         ?
         <>
           {
@@ -19,13 +20,13 @@ const Timeup = ({ timeUp, pomodoros }) => {
         </>
         :
         ''
-      }
+      } */}
     </div>
   )
 }
 
-Timeup.propTypes = {
-  timeUp: PropTypes.bool.isRequired,
-}
+// Timeup.propTypes = {
+//   timeUp: PropTypes.bool.isRequired,
+// }
 
 export default Timeup
