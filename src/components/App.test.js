@@ -2,10 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import App from './App';
 
-import { findByTestAttr } from '../test/testUtils'
+import { findByTestAttr, storeFactory } from '../test/testUtils'
 
-const setup = (props = {}, state = null) => {
-  return shallow(<App />)
+const setup = (props = {}, state = null, initialState={}) => {
+  const store = storeFactory(initialState)
+  return shallow(<App store={store} />)
 }
 
 // fake timers for setInterval
