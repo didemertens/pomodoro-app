@@ -5,6 +5,7 @@ import { clickStart, decreaseMinutes, decreaseSeconds, setTimeUp, setBreakTime }
 
 class BreakTimer extends React.Component {
   componentDidMount() {
+    console.log(this.props.pomodoros)
     if ((this.props.pomodoros + 1) % 4 === 0) {
       this.props.decreaseMinutes(30)
     } else {
