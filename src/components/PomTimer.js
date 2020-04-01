@@ -18,8 +18,8 @@ class PomTimer extends React.Component {
             this.props.clickStart(this.props.startTimer)
             this.props.setPomodoros(this.props.pomodoros + 1)
             // ! change time later
-            this.props.decreaseMinutes(0)
-            this.props.decreaseSeconds(2)
+            this.props.decreaseMinutes(25)
+            this.props.decreaseSeconds(0)
             clearInterval(this.timeInterval)
           } else {
             this.props.decreaseMinutes(this.props.minutes - 1)
@@ -34,8 +34,8 @@ class PomTimer extends React.Component {
 
   handleReset = () => {
     // ! change time later
-    this.props.decreaseMinutes(0)
-    this.props.decreaseSeconds(2)
+    this.props.decreaseMinutes(25)
+    this.props.decreaseSeconds(0)
     this.props.clickStart(this.props.startTimer)
     clearInterval(this.timeInterval)
   }
