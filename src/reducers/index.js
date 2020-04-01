@@ -9,7 +9,7 @@ const minutesReducer = (minutes = 25, action) => {
   return minutes
 }
 
-const secondsReducer = (seconds = 2, action) => {
+const secondsReducer = (seconds = 0, action) => {
   if (action.type === 'DECREASE_SECONDS') {
     return action.payload
   }

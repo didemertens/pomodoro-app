@@ -2,10 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import PomTimer from './Pomtimer';
 
-import { findByTestAttr } from '../test/testUtils'
+import { findByTestAttr, storeFactory } from '../test/testUtils'
 
-const setup = (props = {}, state = null) => {
-  return shallow(<PomTimer />)
+const setup = (props = {}, state = null, initialState={}) => {
+  const store = storeFactory(initialState)
+  return shallow(<PomTimer store={store} />).dive().dive()
 }
 
 // fake timers for setInterval
@@ -31,10 +32,8 @@ test('renders time display', () => {
 
 test('time starts at 25', () => {
   const wrapper = setup()
-  const initialMinuteState = wrapper.state('minutes')
-  const initialSecondState = wrapper.state('seconds')
-  expect(initialMinuteState).toBe(25)
-  expect(initialSecondState).toBe(0)
+  const timeDisplay = findByTestAttr(wrapper, 'time-display')
+  expect(timeDisplay.text()).toContain('25:00')
 })
 
 test('time decreases by 1 second when clicking start button', () => {
@@ -80,10 +79,8 @@ test('time resets when reset button is clicked', () => {
   resetButton.simulate('click')
 
   // check if value of time is 25 again
-  const minuteState = wrapper.state('minutes')
-  const secondState = wrapper.state('seconds')
-  expect(minuteState).toBe(25)
-  expect(secondState).toBe(0)
+  const timeDisplay = findByTestAttr(wrapper, 'time-display')
+  expect(timeDisplay.text()).toContain('25:00')
 })
 
 test('time does not continue after reset button is clicked', () => {

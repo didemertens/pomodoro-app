@@ -41,7 +41,6 @@ class PomTimer extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div data-test="pomtimer-component">
         <p data-test="time-display">{`${this.props.minutes}:${this.props.seconds.toString().length <= 1 ? `0${this.props.seconds}` : this.props.seconds}`}</p>
