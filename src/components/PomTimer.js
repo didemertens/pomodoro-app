@@ -1,5 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Grid } from '@material-ui/core'
+
+import { GradientButton } from '../styles/common/gradientButton'
 import { clickStart, decreaseMinutes, decreaseSeconds, setTimeUp, setPomodoros, setBreakTime } from '../actions'
 
 class PomTimer extends React.Component {
@@ -18,8 +21,8 @@ class PomTimer extends React.Component {
             this.props.clickStart(this.props.startTimer)
             this.props.setPomodoros(this.props.pomodoros + 1)
             // ! change time later
-            this.props.decreaseMinutes(25)
-            this.props.decreaseSeconds(0)
+            // this.props.decreaseMinutes(0)
+            // this.props.decreaseSeconds(0)
             clearInterval(this.timeInterval)
           } else {
             this.props.decreaseMinutes(this.props.minutes - 1)
@@ -42,24 +45,36 @@ class PomTimer extends React.Component {
 
   render() {
     return (
-      <div data-test="pomtimer-component">
-        <p data-test="time-display">{`${this.props.minutes}:${this.props.seconds.toString().length <= 1 ? `0${this.props.seconds}` : this.props.seconds}`}</p>
-        <button
-          data-test="start-button"
-          onClick={() => { this.props.clickStart(this.props.startTimer); this.handleTimer() }}
+      <div className="pomtimer-main-container" data-test="pomtimer-component">
+        <p className="pomtimer-timer-display" data-test="time-display">
+          {`${this.props.minutes.toString().length <= 1 ? `0${this.props.minutes}` : this.props.minutes}:${this.props.seconds.toString().length <= 1 ? `0${this.props.seconds}` : this.props.seconds}`}
+        </p>
+        <Grid 
+          container
         >
-          {this.props.startTimer
-            ?
-            'Pause'
-            :
-            'Start'}
-        </button>
-        <button
-          data-test="reset-button"
-          onClick={this.handleReset}
-        >
-          Reset
-        </button>
+          <Grid item xs={6}>
+            <GradientButton
+              size="large"
+              data-test="start-button"
+              onClick={() => { this.props.clickStart(this.props.startTimer); this.handleTimer() }}
+            >
+              {this.props.startTimer
+                ?
+                'Pause'
+                :
+                'Start'}
+            </GradientButton>
+          </Grid>
+          <Grid item xs={6}>
+            <GradientButton
+              size="large"
+              data-test="reset-button"
+              onClick={this.handleReset}
+            >
+              Reset
+            </GradientButton>
+          </Grid>
+        </Grid>
       </div >
     )
   }

@@ -48,7 +48,7 @@ describe('break timer testing', () => {
 
   it('time decreases by 1 second when clicking start button', () => {
     // find button and click
-    const startButton = findByTestAttr(wrapper, 'start-button')
+    const startButton = findByTestAttr(wrapper, 'start-button').first()
     startButton.simulate('click')
 
     // check value after 1 second on display
@@ -59,7 +59,7 @@ describe('break timer testing', () => {
 
   it('time stops when clicking start button twice', () => {
     // find button and click
-    const startButton = findByTestAttr(wrapper, 'start-button')
+    const startButton = findByTestAttr(wrapper, 'start-button').first()
     startButton.simulate('click')
 
     // click another time after 5 seconds

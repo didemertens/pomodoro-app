@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux'
 
-// ! change default minutes and seconds later
+// ! change default minutes to 25 and seconds to 0 later
 
-const minutesReducer = (minutes = 25, action) => {
+const minutesReducer = (minutes = 0, action) => {
   if (action.type === 'DECREASE_MINUTES') {
     return action.payload
   }
   return minutes
 }
 
-const secondsReducer = (seconds = 0, action) => {
+const secondsReducer = (seconds = 2, action) => {
   if (action.type === 'DECREASE_SECONDS') {
     return action.payload
   }

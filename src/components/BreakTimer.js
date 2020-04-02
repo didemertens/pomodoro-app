@@ -7,8 +7,9 @@ class BreakTimer extends React.Component {
     if ((this.props.pomodoros + 1) % 4 === 0) {
       this.props.decreaseMinutes(30)
     } else {
-      // ! change to 5 later
-      this.props.decreaseMinutes(5)
+      // ! remove seconds later
+      // this.props.decreaseMinutes(5)
+      this.props.decreaseSeconds(2)
     }
   }
 

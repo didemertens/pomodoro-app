@@ -23,7 +23,7 @@ describe('pomodoro timer testing', () => {
   })
   
   it('renders a start button', () => {
-    const startButton = findByTestAttr(wrapper, 'start-button')
+    const startButton = findByTestAttr(wrapper, 'start-button').first()
     expect(startButton.length).toBe(1)
   })
   
@@ -38,20 +38,20 @@ describe('pomodoro timer testing', () => {
   })
   
   it('setinterval is called after clicking the start button', () => {
-    const startButton = findByTestAttr(wrapper, 'start-button')
+    const startButton = findByTestAttr(wrapper, 'start-button').first()
     startButton.simulate('click')
     expect(setInterval).toHaveBeenCalledTimes(1)
   })
 
   it('sets startTimer to true when clicking start button', () => {
-    const startButton = findByTestAttr(wrapper, 'start-button')
+    const startButton = findByTestAttr(wrapper, 'start-button').first()
     startButton.simulate('click')
     expect(store.getState().startTimer).toBe(true)
   })
 
   it('time decreases by 1 second when clicking start button', () => {
     // find button and click
-    let startButton = findByTestAttr(wrapper, 'start-button')
+    let startButton = findByTestAttr(wrapper, 'start-button').first()
     startButton.simulate('click')
   
     // check value after 1 second on display
@@ -62,7 +62,7 @@ describe('pomodoro timer testing', () => {
 
   it('time stops when clicking start button twice', () => {
     // find button and click
-    const startButton = findByTestAttr(wrapper, 'start-button')
+    const startButton = findByTestAttr(wrapper, 'start-button').first()
     startButton.simulate('click')
 
     // click once after 5 seconds
@@ -77,12 +77,12 @@ describe('pomodoro timer testing', () => {
 
   test('time resets when reset button is clicked', () => {
     // find start button and click, advance time by 5 seconds
-    const startButton = findByTestAttr(wrapper, 'start-button')
+    const startButton = findByTestAttr(wrapper, 'start-button').first()
     startButton.simulate('click')
     act(() => jest.advanceTimersByTime(5000))
 
     // find reset button and click
-    const resetButton = findByTestAttr(wrapper, 'reset-button')
+    const resetButton = findByTestAttr(wrapper, 'reset-button').first()
     resetButton.simulate('click')
 
     // check if value of time is 25 again
@@ -92,12 +92,12 @@ describe('pomodoro timer testing', () => {
 
   test('time does not continue after reset button is clicked', () => {
     //find start button and click, advance time by 5 seconds
-    const startButton = findByTestAttr(wrapper, 'start-button')
+    const startButton = findByTestAttr(wrapper, 'start-button').first()
     startButton.simulate('click')
     act(() => jest.advanceTimersByTime(5000))
 
     // find reset button and click, afvance by 5 seconds
-    const resetButton = findByTestAttr(wrapper, 'reset-button')
+    const resetButton = findByTestAttr(wrapper, 'reset-button').first()
     resetButton.simulate('click')
     act(() => jest.advanceTimersByTime(5000))
 
@@ -108,7 +108,7 @@ describe('pomodoro timer testing', () => {
 
   test('amount of pomodoros is increased by 1 after timer is finished', () => {
     //find start button and click, advance time by 25 minutes
-    const startButton = findByTestAttr(wrapper, 'start-button')
+    const startButton = findByTestAttr(wrapper, 'start-button').first()
     startButton.simulate('click')
     act(() => jest.advanceTimersByTime(2500000))
 
