@@ -1,7 +1,13 @@
 @import './components/mainPage';
-@import './components/pomTimer';
+@import './components/generalTimer';
+@import './components/timeUp';
+
 
 * {
   margin: 0;
   padding: 0;
+}
+
+body {
+  box-sizing: border-box;
 }

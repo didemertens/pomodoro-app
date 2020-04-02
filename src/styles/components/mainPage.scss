@@ -1,13 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {
-  background-color: rgb(252, 189, 155);
   font-family: 'Roboto', sans-serif;
 }
 
+.app-outer-container {
+  min-height: 100vh;
+  background-color: #F5F5F5;
+  // background: linear-gradient(45deg, #F9D423 20%, #FF4E50 90%);
+}
+
 .app-main-container {
-  min-height: 80vh;
-  min-width: 80vw;
+  min-height: 60vh;
+  padding: 55px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,5 +20,32 @@ body {
 }
 
 .app-main-title {
-  font-weight: 200;
+  // margin: 10px;
+  min-width: 100vw;
+  padding: 9px;
+  max-height: 6vh;
+  font-weight: 800;
+  color: white;
+  text-transform: uppercase;
+  background:#FF4E50;
+}
+
+.app-pomo-amount {
+  font-size: 30px;
+  min-height: 35px;
+  margin: 0 25px;
+}
+
+.app-break-subtitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.app-todo-container {
+  min-height: 60vh;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }

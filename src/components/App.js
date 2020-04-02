@@ -8,26 +8,49 @@ import PomTimer from './PomTimer'
 
 const App = (props) => {
   return (
-    <Grid
-      container 
-      justify = "center"
-      alignItems="center"
-      style={{ minHeight: '100vh' }}
-    >
-      <Paper
-        elevation={3}
-        >
-        <div className="app-main-container" data-test="component-app">
-          {'🍅'.repeat(props.pomodoros)}
-          <h1 className="app-main-title">Your productive day starts here</h1>
-          {props.breakOver && 'Break over. Time to get back to work!'}
-          {!props.timeUp ?
-            <PomTimer />
-            :
-            <Timeup />
-          }
-        </div>
-      </Paper>
+    <Grid 
+    container 
+    className="app-outer-container">
+      <h1 className="app-main-title">Pomochore</h1>
+      <Grid
+        container 
+      >
+        <Grid
+          item md={6}
+          container 
+          justify = "center"
+          alignItems="center"
+          direction="column"
+          >
+            <Paper
+              elevation={3}
+              >
+              <div className="app-main-container" data-test="component-app">
+                {props.breakOver && <p className="app-break-subtitle">Time to get back to work</p>}
+                {!props.timeUp ?
+                  <PomTimer />
+                  :
+                  <Timeup />
+                }
+              </div>
+            </Paper>
+          </Grid>
+          <Grid
+          item md={6}
+          container 
+          justify = "center"
+          alignItems="center"
+          >
+            <Paper
+              elevation={3}
+            >
+              <div className="app-todo-container">
+                <h2>To do</h2>
+              </div>
+            </Paper>
+          </Grid>
+          <p className="app-pomo-amount">{'🍅'.repeat(props.pomodoros)}</p>
+      </Grid>
     </Grid>
   )
 }

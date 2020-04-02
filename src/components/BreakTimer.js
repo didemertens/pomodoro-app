@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
+import { GradientButton } from '../styles/common/gradientButton'
 import { clickStart, decreaseMinutes, decreaseSeconds, setTimeUp, setBreakTime } from '../actions'
 
 class BreakTimer extends React.Component {
@@ -42,12 +44,11 @@ class BreakTimer extends React.Component {
 
   render() {
     return (
-      <div data-test="component-breaktimer">
-        <h1>Timer</h1>
-        <div data-test="display-timer">
-          {`${this.props.minutes}:${this.props.seconds.toString().length <= 1 ? `0${this.props.seconds}` : this.props.seconds}`}
+      <div className="timer-main-container" data-test="component-breaktimer">
+        <div className="timer-display" data-test="display-timer">
+        {`${this.props.minutes.toString().length <= 1 ? `0${this.props.minutes}` : this.props.minutes}:${this.props.seconds.toString().length <= 1 ? `0${this.props.seconds}` : this.props.seconds}`}
         </div>
-        <button
+        <GradientButton
           data-test="start-button"
           onClick={() => { this.props.clickStart(this.props.startTimer); this.handleTimer() }}
         >
@@ -56,7 +57,7 @@ class BreakTimer extends React.Component {
             'Pause'
             :
             'Start'}
-        </button>
+        </GradientButton>
       </div>
     )
   }
