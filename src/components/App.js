@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, Paper } from '@material-ui/core'
+import { Animated } from 'react-animated-css'
 
 import '../styles/main.scss'
 import Timeup from './Timeup'
@@ -49,7 +50,9 @@ const App = (props) => {
               </div>
             </Paper>
           </Grid>
-          <p className="app-pomo-amount">{'🍅'.repeat(props.pomodoros)}</p>
+          <Animated animationIn="bounceInRight"  animationInDuration={2000} isVisible={true}>
+            <p className="app-pomo-amount">{'🍅'.repeat(props.pomodoros)}</p>
+          </Animated>
       </Grid>
     </Grid>
   )
