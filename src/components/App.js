@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Provider } from "react-redux"
 
 import Timeup from './Timeup'
 import PomTimer from './PomTimer'

@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import { shallow } from 'enzyme'
-import PomTimer from './Pomtimer'
 
+import PomTimer from './Pomtimer'
 import { findByTestAttr, storeFactory } from '../test/testUtils'
 
 const setup = (props = {}, state = null, initialState={}) => {
@@ -44,19 +44,25 @@ test('setinterval is called after clicking the start button', () => {
   expect(setInterval).toHaveBeenCalledTimes(1)
 })
 
-// test('time decreases by 1 second when clicking start button', () => {
-//   const wrapper = setup()
+test('time decreases by 1 second when clicking start button', () => {
+  const wrapper = setup()
 
-//   // find button and click
-//   const startButton = findByTestAttr(wrapper, 'start-button')
-//   startButton.simulate('click')
+  // find button and click
+  let startButton = findByTestAttr(wrapper, 'start-button')
+  // startButton.simulate('click')
 
-//   // check value after 1 second on display
-//   jest.advanceTimersByTime(10000000);
-  
-//   const timeDisplay = findByTestAttr(wrapper, 'time-display')
-//   expect(timeDisplay.text()).toContain('24:59')
-// })
+  startButton.simulate('click')
+
+  wrapper.update()
+  startButton = findByTestAttr(wrapper, 'start-button')
+
+  expect(startButton.text()).toContain('Pause')
+
+  // check value after 1 second on display
+  // jest.advanceTimersByTime(1000)
+  // const timeDisplay = findByTestAttr(wrapper, 'time-display')
+  // expect(timeDisplay.text()).toContain('24:59')
+})
 
 // test('time stops when clicking start button twice', () => {
 //   const wrapper = setup()
