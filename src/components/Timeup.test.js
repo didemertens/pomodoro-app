@@ -2,49 +2,39 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { findByTestAttr, storeFactory } from '../test/testUtils'
-import { checkProps } from '../test/testUtils'
 import Timeup from './Timeup'
 
 // factory function to create a shallow wrapper for the timeup component
-const defaultProps = { timeUp: false, pomodoros: 0 }
+const firstState = { timeUp: true, pomodoros: 8 }
 
-const setup = (props = {}, initialState={}) => {
-  const setupProps = { ...defaultProps, ...props }
+const setupMultiplePom = (initialState={...firstState}) => {
   const store = storeFactory(initialState)
-  return shallow(<Timeup {...setupProps} store={store} />).dive().dive()
+  return shallow(<Timeup store={store} />).dive().dive()
 }
 
-test('renders without error', () => {
-  const wrapper = setup()
-  const appComponent = findByTestAttr(wrapper, 'component-timeup')
-  expect(appComponent.length).toBe(1)
+describe('pomodoro timer testing', () => {
+  const initialState = { timeUp: true, pomodoros: 3 }
+  let store, wrapper
+
+  beforeEach(()=> {
+    store = storeFactory(initialState)
+    wrapper = shallow(<Timeup store={store} />).dive().dive()
+  })
+  
+  it('renders without error', () => {
+    const appComponent = findByTestAttr(wrapper, 'component-timeup')
+    expect(appComponent.length).toBe(1)
+  })
+
+  it('if amount of pomodoros is not divisible by 4, say it is time for a SHORT break', () => {
+    const message = findByTestAttr(wrapper, 'timeup-message-short')
+    expect(message.text()).toContain('short')
+  })
+
+  it('if amount of pomodoros is divisible by 4, say it is time for a LONG break', () => {
+    const wrapper = setupMultiplePom()
+    console.log(wrapper.debug())
+    const message = findByTestAttr(wrapper, 'timeup-message-long')
+    expect(message.text()).toContain('long')
+  })
 })
-
-// test('renders no text when timeUp prop is false', () => {
-//   const wrapper = setup({ timeUp: false })
-//   const appComponent = findByTestAttr(wrapper, 'component-timeup')
-//   expect(appComponent.text()).toBe('')
-// })
-
-test('renders non-empty message when timeUp prop is true', () => {
-  const wrapper = setup({ timeUp: true })
-  const message = findByTestAttr(wrapper, 'timeup-message')
-  expect(message.text().length).not.toBe(0)
-})
-
-test('does not throw a warning with expected props', () => {
-  const expectedProps = { timeUp: false }
-  checkProps(Timeup, expectedProps)
-})
-
-// test('if amount of pomodoros is not divisible by 4, say it is time for a SHORT break', () => {
-//   const wrapper = setup({ timeUp: true, pomodoros: 1 })
-//   const message = findByTestAttr(wrapper, 'timeup-message')
-//   expect(message.text()).toContain('short')
-// })
-
-// test('if amount of pomodoros is divisible by 4, say it is time for a LONG break', () => {
-//   const wrapper = setup({ timeUp: true, pomodoros: 4 })
-//   const message = findByTestAttr(wrapper, 'timeup-message')
-//   expect(message.text()).toContain('long')
-// })
