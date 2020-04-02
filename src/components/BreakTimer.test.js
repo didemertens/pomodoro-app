@@ -1,91 +1,74 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
+import { act } from 'react-dom/test-utils'
 
 import { findByTestAttr, storeFactory } from '../test/testUtils'
-import { checkProps } from '../test/testUtils'
 import BreakTimer from './BreakTimer'
 
 // to be able to advance timers
 jest.useFakeTimers()
 
 // factory function to create a shallow wrapper for the timeup component
-const defaultProps = { pomodoros: 0 }
+const firstState = { pomodoros: 3 }
 
-const setup = (props = {}, initialState={}) => {
-  const setupProps = { ...defaultProps, ...props }
+const setup = (initialState={...firstState}) => {
   const store = storeFactory(initialState)
-  return shallow(<BreakTimer {...setupProps} store={store} />).dive().dive()
+  return mount(<BreakTimer store={store} />)
 }
 
-test('renders without error', () => {
-  const wrapper = setup()
-  const breakComponent = findByTestAttr(wrapper, 'component-breaktimer')
-  expect(breakComponent.length).toBe(1)
+describe('break timer testing', () => {
+  const initialState = {pomodoros: 5}
+  let store, wrapper
+
+  beforeEach(()=>{
+    store = storeFactory(initialState)
+    wrapper = mount(<BreakTimer store={store} />)
+  })
+
+  it('renders without error', () => {
+    const breakComponent = findByTestAttr(wrapper, 'component-breaktimer')
+    expect(breakComponent.length).toBe(1)
+  })
+
+  it('renders the timer display', () => {
+    const displayTimer = findByTestAttr(wrapper, 'display-timer')
+    expect(displayTimer.length).toBe(1)
+  })
+
+  it('minutes is set to 5 when pomodoros is not divisible by 4', () => {
+    const displayTimer = findByTestAttr(wrapper, 'display-timer')
+    expect(displayTimer.text()).toContain('5:00')
+  })
+
+  it('minutes is set to 30 when pomodoros is divisible by 4', () => {
+    const longBreakWrapper = setup()
+    const displayTimer = findByTestAttr(longBreakWrapper, 'display-timer')
+    expect(displayTimer.text()).toContain('30:00')
+  })
+
+  it('time decreases by 1 second when clicking start button', () => {
+    // find button and click
+    const startButton = findByTestAttr(wrapper, 'start-button')
+    startButton.simulate('click')
+
+    // check value after 1 second on display
+    act(() => jest.advanceTimersByTime(1000))
+    const displayTimer = findByTestAttr(wrapper, 'display-timer')
+    expect(displayTimer.text()).toContain('4:59')
 })
 
-test('renders the timer display', () => {
-  const wrapper = setup({ pomodoros: 1 })
-  const displayTimer = findByTestAttr(wrapper, 'display-timer')
-  expect(displayTimer.length).toBe(1)
-})
+  it('time stops when clicking start button twice', () => {
+    // find button and click
+    const startButton = findByTestAttr(wrapper, 'start-button')
+    startButton.simulate('click')
 
-// test('minutes is set to 5 when pomodoros is not divisible by 4', () => {
-//   const wrapper = setup({ pomodoros: 1 })
-//   const minutesState = wrapper.state('minutes')
-//   expect(minutesState).toBe(5)
-// })
+    // click another time after 5 seconds
+    act(() => jest.advanceTimersByTime(5000))
+    startButton.simulate('click')
 
-// test('minutes is set to 30 when pomodoros is by 4', () => {
-//   const wrapper = setup({ pomodoros: 7 })
-//   const minutesState = wrapper.state('minutes')
-//   expect(minutesState).toBe(30)
-// })
-
-// test('time decreases by 1 second when clicking start button', () => {
-//   const wrapper = setup({ pomodoros: 1 })
-
-//   // find button and click
-//   const startButton = findByTestAttr(wrapper, 'start-button')
-//   startButton.simulate('click')
-
-//   // check value after 1 second on display
-//   jest.advanceTimersByTime(1000)
-//   const displayTimer = findByTestAttr(wrapper, 'display-timer')
-//   expect(displayTimer.text()).toContain('4:59')
-// })
-
-// test('time stops when clicking start button twice', () => {
-//   const wrapper = setup({ pomodoros: 1 })
-
-//   // find button and click
-//   const startButton = findByTestAttr(wrapper, 'start-button')
-//   startButton.simulate('click')
-
-//   // click once after 5 seconds
-//   jest.advanceTimersByTime(5000)
-//   startButton.simulate('click')
-
-//   // click second time and check value after 10 seconds on display
-//   jest.advanceTimersByTime(5000)
-//   startButton.simulate('click')
-//   const displayTimer = findByTestAttr(wrapper, 'display-timer')
-//   expect(displayTimer.text()).toContain('4:55')
-// })
-
-// test('when break time is over, do not show start button', () => {
-//   const wrapper = setup({ pomodoros: 1 })
-
-//   // find button and click, advance by 5 minutes
-//   const startButton = findByTestAttr(wrapper, 'start-button')
-//   startButton.simulate('click')
-//   jest.advanceTimersByTime(5000000)
-
-//   // check if start button has been hidden
-//   const hiddenStartBtn = findByTestAttr(wrapper, 'start-button')
-//   expect(hiddenStartBtn.length).toBe(0)
-// })
-
-test('does not throw a warning with expected props', () => {
-  const expectedProps = { pomodoros: 3 }
-  checkProps(BreakTimer, expectedProps)
+    // click second time and check value after 5 more seconds on display
+    act(() => jest.advanceTimersByTime(5000))
+    const displayTimer = findByTestAttr(wrapper, 'display-timer')
+    expect(displayTimer.text()).toContain('4:55')
+  })
 })

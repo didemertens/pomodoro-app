@@ -12,7 +12,7 @@ const setupMultiplePom = (initialState={...firstState}) => {
   return shallow(<Timeup store={store} />).dive().dive()
 }
 
-describe('pomodoro timer testing', () => {
+describe('Time is up testing', () => {
   const initialState = { timeUp: true, pomodoros: 3 }
   let store, wrapper
 
@@ -33,7 +33,6 @@ describe('pomodoro timer testing', () => {
 
   it('if amount of pomodoros is divisible by 4, say it is time for a LONG break', () => {
     const wrapper = setupMultiplePom()
-    console.log(wrapper.debug())
     const message = findByTestAttr(wrapper, 'timeup-message-long')
     expect(message.text()).toContain('long')
   })

@@ -1,16 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { clickStart, decreaseMinutes, decreaseSeconds, setTimeUp, setBreakTime } from '../actions'
 
 class BreakTimer extends React.Component {
   componentDidMount() {
-    console.log(this.props.pomodoros)
     if ((this.props.pomodoros + 1) % 4 === 0) {
       this.props.decreaseMinutes(30)
     } else {
       // ! change to 5 later
-      this.props.decreaseMinutes(0)
+      this.props.decreaseMinutes(5)
     }
   }
 
@@ -62,10 +60,6 @@ class BreakTimer extends React.Component {
     )
   }
 }
-
-// BreakTimer.propTypes = {
-//   pomodoros: PropTypes.number.isRequired,
-// }
 
 const mapStateToProps = (state) => {
   return {
