@@ -27,7 +27,11 @@ const App = (props) => {
               elevation={3}
               >
               <div className="app-main-container" data-test="component-app">
-                {props.breakOver && <p className="app-break-subtitle">Time to get back to work</p>}
+              {props.breakOver && 
+                <Animated animationIn="zoomIn"  animationInDuration={1000} isVisible={true}>
+                  <p className="app-break-subtitle">Time to get back to work</p>
+                </Animated>
+                }
                 {!props.timeUp ?
                   <PomTimer />
                   :
@@ -50,9 +54,7 @@ const App = (props) => {
               </div>
             </Paper>
           </Grid>
-          <Animated animationIn="bounceInRight"  animationInDuration={2000} isVisible={true}>
-            <p className="app-pomo-amount">{'🍅'.repeat(props.pomodoros)}</p>
-          </Animated>
+          <p className="app-pomo-amount">{'🍅'.repeat(props.pomodoros)}</p>
       </Grid>
     </Grid>
   )

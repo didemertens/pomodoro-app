@@ -31,7 +31,7 @@ const clickButtonReducer = (buttonClicked = false, action) => {
   return buttonClicked
 }
 
-const pomodorosReducer = (pomodoros = 2, action) => {
+const pomodorosReducer = (pomodoros = 0, action) => {
   if (action.type === 'SET_POMODOROS') {
     return action.payload
   }
