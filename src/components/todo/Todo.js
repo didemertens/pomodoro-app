@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 
 import { addToList, deleteToList } from '../../actions'
-import { GradientButton } from '../../styles/common/gradientButton'
 
 class Todo extends React.Component {
 
@@ -43,16 +42,12 @@ class Todo extends React.Component {
           }
         </div>
         <form 
-        // onSubmit={this.handleSubmit}
+          onSubmit={this.handleSubmit}
           >
           <input type="text" ref={ref => this.userEntry = ref}/>
-          <GradientButton
-            size="large"
-            onClick={this.handleSubmit}
-            data-test="add-button"
-          >
+          <button data-test="add-button">
             Add
-          </GradientButton>
+          </button>
         </form>
       </div>
     )
