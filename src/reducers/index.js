@@ -66,7 +66,11 @@ const todoReducer = (todoList = [], action) => {
         return el
       }
     })
-  }
+  } else if (action.type === 'REMOVE_ONE_TASK') {
+    return todoList
+  } else if (action.type == 'REMOVE_ALL_TASKS') {
+    return []
+}
   return todoList
 }
 
@@ -85,5 +89,5 @@ export default combineReducers({
   pomodoros: pomodorosReducer,
   breakOver: breakOverReducer,
   todoList: todoReducer,
-  errors: formReducer
+  errors: formReducer,
 })

@@ -78,3 +78,9 @@ export const errorForm = (errorBool) => {
     payload: errorBool
   }
 }
+
+export const removeAllTasks = () => {
+  return {
+    type: 'REMOVE_ALL_TASKS'
+  }
+}

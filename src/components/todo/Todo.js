@@ -6,7 +6,7 @@ import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp'
 import MenuIcon from '@material-ui/icons/Menu'
 import { TextField, Checkbox } from '@material-ui/core'
 
-import { addToList, deleteToList, checkTodo, errorForm } from '../../actions'
+import { addToList, deleteToList, checkTodo, errorForm, removeAllTasks } from '../../actions'
 
 class Todo extends React.Component {
 
@@ -20,6 +20,12 @@ class Todo extends React.Component {
       this.props.errorForm(true)
     }
   }
+
+  handleMenuClick = () => {
+    this.props.removeAllTasks()
+    // remove a task (show delete icon)
+    // remove all tasks (empty array)
+  }
   
   render() {
     return (
@@ -27,7 +33,7 @@ class Todo extends React.Component {
         <div className="todo-container-header">
           <div className="todo-container-header--menu">
             <h1>To do:</h1>
-            <MenuIcon />
+            <MenuIcon onClick={this.handleMenuClick} />
           </div>
           <div data-test="todo-list-container">
             {
@@ -97,6 +103,7 @@ export default connect
       addToList,
       deleteToList,
       checkTodo,
-      errorForm
+      errorForm,
+      removeAllTasks
     })
   (Todo)
