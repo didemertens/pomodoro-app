@@ -1,5 +1,39 @@
+.todo-main-container {
+  width: 26vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: flex-end;
+  min-height: 60vh;
+
+  .todo-container-header {
+    height: 50vh;
+    overflow: auto;
+  }
+}
+
 .todo-button--delete, .todo-button--add {
   border: 0;
   cursor: pointer;
   color: #FF8E53;
+}
+
+
+.todo-form--add {
+  align-self: flex-start;
+  display: flex;
+
+  .todo-textfield {
+    width: 20vw;
+    margin-right: 15px;
+  }
+  svg {
+    font-size: 4em;
+  }
+}
+
+.todo-list {
+  li {
+    list-style: none;
+  }
 }

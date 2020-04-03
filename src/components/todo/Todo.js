@@ -22,49 +22,51 @@ class Todo extends React.Component {
   
   render() {
     return (
-      <div data-test="todo-component">
-        <h1>To do:</h1>
-        <div data-test="todo-list-container">
-          {
-            this.props.todoList.length === 0
-            ?
-            'Nothing here!'
-            :
-            <ul data-test="todo-list">
-              {this.props.todoList.map((todo, index) => (
-                <li key={index}>
-                  <Checkbox
-                    checked={todo.checked}
-                    onChange={() => this.props.checkTodo(index, !todo.checked, this.props.todoList)}
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                  />
-                  {todo.text}
-                  <button
-                    className="todo-button--delete"
-                    data-test="delete-button"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      this.props.deleteToList(index, this.props.todoList)
-                    }}
-                  >
-                    <DeleteIcon />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          }
+      <div className="todo-main-container" data-test="todo-component">
+        <div className="todo-container-header">
+          <h1>To do:</h1>
+          <div data-test="todo-list-container">
+            {
+              this.props.todoList.length === 0
+              ?
+              <p>Nothing here!</p>
+              :
+              <ul className="todo-list" data-test="todo-list">
+                {this.props.todoList.map((todo, index) => (
+                  <li key={index}>
+                    <Checkbox
+                      checked={todo.checked}
+                      onChange={() => this.props.checkTodo(index, !todo.checked, this.props.todoList)}
+                      inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />
+                    {todo.text}
+                    <button
+                      className="todo-button--delete"
+                      data-test="delete-button"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        this.props.deleteToList(index, this.props.todoList)
+                      }}
+                    >
+                      <DeleteIcon />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            }
+          </div>
         </div>
         <form 
+          className="todo-form--add"
           onSubmit={this.handleSubmit}
           >
           <TextField 
-          type="text"
-          label="Add a task" 
-          color="secondary" 
-          error={this.props.errors}
-          helperText={this.props.errors && 'Empty field!'}
-          inputRef={ref => this.userEntry = ref}
-          onChange={() => this.props.errorForm(false)}
+            className="todo-textfield"
+            color="secondary" 
+            error={this.props.errors}
+            helperText={this.props.errors ? 'Empty field!' : 'Add a task'}
+            inputRef={ref => this.userEntry = ref}
+            onChange={() => this.props.errorForm(false)}
           />
           <button 
             className="todo-button--add"
