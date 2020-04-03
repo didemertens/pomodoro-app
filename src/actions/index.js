@@ -40,3 +40,11 @@ export const setBreakTime = (breakOver) => {
     payload: breakOver
   }
 } 
+
+// FOR TODO LIST
+export const addToList = (todo) => {
+  return {
+    type: 'ADD_TODO',
+    payload: todo
+  }
+}

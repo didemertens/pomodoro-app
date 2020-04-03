@@ -45,11 +45,20 @@ const breakOverReducer = (breakOver = false, action) => {
   return breakOver
 }
 
+// FOR TODO
+const todoReducer = (todo = [], action) => {
+  if (action.type === 'ADD_TODO') {
+    todo.push(action.payload)
+  }
+  return todo
+}
+
 export default combineReducers({
   minutes: minutesReducer,
   seconds: secondsReducer,
   startTimer: clickButtonReducer,
   timeUp: timeUpReducer,
   pomodoros: pomodorosReducer,
-  breakOver: breakOverReducer
+  breakOver: breakOverReducer,
+  todoList: todoReducer
 })

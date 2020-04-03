@@ -6,6 +6,7 @@ import { Animated } from 'react-animated-css'
 import '../styles/main.scss'
 import Timeup from './pomodoro/Timeup'
 import PomTimer from './pomodoro/PomTimer'
+import Todo from './todo/Todo'
 
 const App = (props) => {
   return (
@@ -50,7 +51,7 @@ const App = (props) => {
               elevation={3}
             >
               <div className="app-todo-container">
-                <h2>To do</h2>
+                <Todo />
               </div>
             </Paper>
           </Grid>
