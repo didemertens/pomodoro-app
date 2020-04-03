@@ -10,6 +10,19 @@
     height: 50vh;
     overflow: auto;
   }
+
+  .todo-container-header--menu {
+    display: flex;
+    justify-content: space-between;
+    svg {
+      margin-top: -5px;
+      font-size: 2em;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
 }
 
 .todo-button--delete, .todo-button--add {
@@ -35,6 +48,10 @@
 .todo-list {
   li {
     list-style: none;
+    button svg {
+      font-size: 2em;
+      margin-bottom: 5px;
+    }
   }
   .todo-list-task {
     display: inline;

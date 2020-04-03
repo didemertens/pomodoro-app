@@ -2,7 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined'
-import DeleteIcon from '@material-ui/icons/Delete'
+import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp'
+import MenuIcon from '@material-ui/icons/Menu'
 import { TextField, Checkbox } from '@material-ui/core'
 
 import { addToList, deleteToList, checkTodo, errorForm } from '../../actions'
@@ -24,7 +25,10 @@ class Todo extends React.Component {
     return (
       <div className="todo-main-container" data-test="todo-component">
         <div className="todo-container-header">
-          <h1>To do:</h1>
+          <div className="todo-container-header--menu">
+            <h1>To do:</h1>
+            <MenuIcon />
+          </div>
           <div data-test="todo-list-container">
             {
               this.props.todoList.length === 0
@@ -48,7 +52,7 @@ class Todo extends React.Component {
                         this.props.deleteToList(index, this.props.todoList)
                       }}
                     >
-                      <DeleteIcon />
+                      <DeleteForeverSharpIcon />
                     </button>
                   </li>
                 ))}
