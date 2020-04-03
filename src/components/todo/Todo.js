@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined'
 import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp'
 import MenuIcon from '@material-ui/icons/Menu'
-import { TextField, Checkbox, Button, Menu, MenuItem } from '@material-ui/core'
+import { TextField, Checkbox, Menu, MenuItem } from '@material-ui/core'
 
 import { addToList, deleteToList, checkTodo, errorForm, removeAllTasks } from '../../actions'
 

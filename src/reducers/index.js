@@ -68,7 +68,7 @@ const todoReducer = (todoList = [], action) => {
     })
   } else if (action.type === 'REMOVE_ONE_TASK') {
     return todoList
-  } else if (action.type == 'REMOVE_ALL_TASKS') {
+  } else if (action.type === 'REMOVE_ALL_TASKS') {
     return []
 }
   return todoList
