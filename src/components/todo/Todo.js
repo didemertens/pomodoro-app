@@ -1,6 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
+import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined'
+import DeleteIcon from '@material-ui/icons/Delete'
+import { Input } from '@material-ui/core'
 
 import { addToList, deleteToList } from '../../actions'
 
@@ -28,13 +31,14 @@ class Todo extends React.Component {
                 <li key={index}>
                   {todo}
                   <button
+                    className="todo-button--delete"
                     data-test="delete-button"
                     onClick={(e) => {
                       e.preventDefault()
                       this.props.deleteToList(index, this.props.todoList)
                     }}
                   >
-                    Delete
+                    <DeleteIcon />
                   </button>
                 </li>
               ))}
@@ -44,9 +48,12 @@ class Todo extends React.Component {
         <form 
           onSubmit={this.handleSubmit}
           >
-          <input type="text" ref={ref => this.userEntry = ref}/>
-          <button data-test="add-button">
-            Add
+          <Input type="text" color="secondary" inputRef={ref => this.userEntry = ref}/>
+          <button 
+            className="todo-button--add"
+            data-test="add-button"
+          >
+            <AddCircleOutlinedIcon />
           </button>
         </form>
       </div>
