@@ -39,7 +39,7 @@ class Todo extends React.Component {
                       onChange={() => this.props.checkTodo(index, !todo.checked, this.props.todoList)}
                       inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
-                    {todo.text}
+                    <p className={todo.checked ? 'todo-list-task todo-list-task--checked' : 'todo-list-task'}>{todo.text}</p>
                     <button
                       className="todo-button--delete"
                       data-test="delete-button"
