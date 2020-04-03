@@ -3,19 +3,23 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined'
 import DeleteIcon from '@material-ui/icons/Delete'
-import { Input, Checkbox } from '@material-ui/core'
+import { TextField, Checkbox } from '@material-ui/core'
 
-import { addToList, deleteToList, checkTodo } from '../../actions'
+import { addToList, deleteToList, checkTodo, errorForm } from '../../actions'
 
 class Todo extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
     const input = ReactDOM.findDOMNode(this.userEntry)
-    this.props.addToList(input.value, false, this.props.todoList)
-    input.value = ''
+    if (input.value) {
+      this.props.addToList(input.value, false, this.props.todoList)
+      input.value = ''
+    } else {
+      this.props.errorForm(true)
+    }
   }
-
+  
   render() {
     return (
       <div data-test="todo-component">
@@ -24,7 +28,7 @@ class Todo extends React.Component {
           {
             this.props.todoList.length === 0
             ?
-            'Add a task!'
+            'Nothing here!'
             :
             <ul data-test="todo-list">
               {this.props.todoList.map((todo, index) => (
@@ -53,10 +57,15 @@ class Todo extends React.Component {
         <form 
           onSubmit={this.handleSubmit}
           >
-          <Input 
-          type="text" 
+          <TextField 
+          type="text"
+          label="Add a task" 
           color="secondary" 
-          inputRef={ref => this.userEntry = ref}/>
+          error={this.props.errors}
+          helperText={this.props.errors && 'Empty field!'}
+          inputRef={ref => this.userEntry = ref}
+          onChange={() => this.props.errorForm(false)}
+          />
           <button 
             className="todo-button--add"
             data-test="add-button"
@@ -71,7 +80,8 @@ class Todo extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    todoList: state.todoList
+    todoList: state.todoList,
+    errors: state.errors
   }
 }
 
@@ -80,6 +90,7 @@ export default connect
     {
       addToList,
       deleteToList,
-      checkTodo
+      checkTodo,
+      errorForm
     })
   (Todo)

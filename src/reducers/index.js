@@ -54,14 +54,13 @@ const todoReducer = (todoList = [], action) => {
   } else if (action.type === 'DELETE_TODO') {
     const updatedArray = action.todoArray.filter((el, i) => i !== action.index)
     return updatedArray
-  } else if (action.type === 'CHECK_TODO') {
+  }  else if (action.type === 'CHECK_TODO') {
     return action.todoArray.map((el, i) => {
       if (i === action.todo.index) {
         const updatedTodo = {
           ...el,
           checked: action.todo.checked
         }
-        console.log(updatedTodo)
         return updatedTodo
       } else {
         return el
@@ -71,6 +70,13 @@ const todoReducer = (todoList = [], action) => {
   return todoList
 }
 
+const formReducer = (errors = false, action) => {
+  if (action.type === 'ERROR_FORM') {
+    return action.payload
+  }
+  return errors
+}
+
 export default combineReducers({
   minutes: minutesReducer,
   seconds: secondsReducer,
@@ -78,5 +84,6 @@ export default combineReducers({
   timeUp: timeUpReducer,
   pomodoros: pomodorosReducer,
   breakOver: breakOverReducer,
-  todoList: todoReducer
+  todoList: todoReducer,
+  errors: formReducer
 })

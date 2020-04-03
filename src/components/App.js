@@ -8,6 +8,15 @@ import Timeup from './pomodoro/Timeup'
 import PomTimer from './pomodoro/PomTimer'
 import Todo from './todo/Todo'
 
+
+/**
+  To do:
+  - fix animations in app component
+  - Local storage for todo list
+  - Can't submit an empty task to todo list
+  - Reset everything ? pomodoros and todo list
+ **/
+
 const App = (props) => {
   return (
     <Grid 

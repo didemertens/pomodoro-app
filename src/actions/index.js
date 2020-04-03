@@ -71,3 +71,10 @@ export const checkTodo = (index, checked, todoArray) => {
     todoArray: todoArray
   }
 }
+
+export const errorForm = (errorBool) => {
+  return {
+    type: 'ERROR_FORM',
+    payload: errorBool
+  }
+}
