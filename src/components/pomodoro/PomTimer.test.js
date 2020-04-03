@@ -3,7 +3,7 @@ import { mount } from 'enzyme'
 import { act } from 'react-dom/test-utils'
 
 import PomTimer from './Pomtimer'
-import { findByTestAttr, storeFactory } from '../test/testUtils'
+import { findByTestAttr, storeFactory } from '../../test/testUtils'
 
 // fake timers for setInterval
 jest.useFakeTimers()

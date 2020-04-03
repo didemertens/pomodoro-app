@@ -4,8 +4,8 @@ import { Grid, Paper } from '@material-ui/core'
 import { Animated } from 'react-animated-css'
 
 import '../styles/main.scss'
-import Timeup from './Timeup'
-import PomTimer from './PomTimer'
+import Timeup from './pomodoro/Timeup'
+import PomTimer from './pomodoro/PomTimer'
 
 const App = (props) => {
   return (

@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { GradientButton } from '../styles/common/gradientButton'
-import { clickStart, decreaseMinutes, decreaseSeconds, setTimeUp, setBreakTime } from '../actions'
+import { GradientButton } from '../../styles/common/gradientButton'
+import { clickStart, decreaseMinutes, decreaseSeconds, setTimeUp, setBreakTime } from '../../actions'
 
 class BreakTimer extends React.Component {
   componentDidMount() {

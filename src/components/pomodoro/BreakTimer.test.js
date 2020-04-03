@@ -2,7 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { act } from 'react-dom/test-utils'
 
-import { findByTestAttr, storeFactory } from '../test/testUtils'
+import { findByTestAttr, storeFactory } from '../../test/testUtils'
 import BreakTimer from './BreakTimer'
 
 // to be able to advance timers

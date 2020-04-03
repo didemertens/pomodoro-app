@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { findByTestAttr, storeFactory } from '../test/testUtils'
+import { findByTestAttr, storeFactory } from '../../test/testUtils'
 import Timeup from './Timeup'
 
 // factory function to create a shallow wrapper for the timeup component

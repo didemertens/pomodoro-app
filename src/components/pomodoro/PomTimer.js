@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Grid } from '@material-ui/core'
 
-import { GradientButton } from '../styles/common/gradientButton'
-import { clickStart, decreaseMinutes, decreaseSeconds, setTimeUp, setPomodoros, setBreakTime } from '../actions'
+import { GradientButton } from '../../styles/common/gradientButton'
+import { clickStart, decreaseMinutes, decreaseSeconds, setTimeUp, setPomodoros, setBreakTime } from '../../actions'
 
 class PomTimer extends React.Component {
   handleTimer = () => {
