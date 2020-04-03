@@ -4,11 +4,26 @@ import { connect } from 'react-redux'
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined'
 import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp'
 import MenuIcon from '@material-ui/icons/Menu'
-import { TextField, Checkbox } from '@material-ui/core'
+import { TextField, Checkbox, Button, Menu, MenuItem } from '@material-ui/core'
 
 import { addToList, deleteToList, checkTodo, errorForm, removeAllTasks } from '../../actions'
 
 class Todo extends React.Component {
+  state = {
+    menuOpen: false,
+    anchorEl: null
+  }
+
+  handleMenu = (e) => {
+    this.setState({menuOpen: !this.state.menuOpen})
+    this.setState({anchorEl: e.currentTarget})
+  }
+
+ handleClose = () => {
+    this.setState({menuOpen: !this.state.menuOpen})
+  }
+
+  // 
 
   handleSubmit = (e) => {
     e.preventDefault()
@@ -21,19 +36,36 @@ class Todo extends React.Component {
     }
   }
 
-  handleMenuClick = () => {
-    this.props.removeAllTasks()
-    // remove a task (show delete icon)
-    // remove all tasks (empty array)
-  }
-  
   render() {
+    console.log(this.state)
     return (
       <div className="todo-main-container" data-test="todo-component">
         <div className="todo-container-header">
-          <div className="todo-container-header--menu">
+          <div className="todo-container-header--titlemenu">
             <h1>To do:</h1>
-            <MenuIcon onClick={this.handleMenuClick} />
+            <div className="todo-container-header--menu">
+              <MenuIcon onClick={this.handleMenu} />
+              <Menu
+                id="simple-menu"
+                anchorEl={this.state.anchorEl}
+                keepMounted
+                open={this.state.menuOpen}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={() => {
+                  this.handleClose()
+                  this.props.removeAllTasks()}}
+                  >Remove all tasks</MenuItem>
+
+                {/* <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                <MenuItem onClick={this.handleClose}>Logout</MenuItem> */}
+              </Menu>
+            </div>
+
+
+
+
+
           </div>
           <div data-test="todo-list-container">
             {
