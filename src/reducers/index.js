@@ -48,11 +48,13 @@ const breakOverReducer = (breakOver = false, action) => {
 // FOR TODO
 const todoReducer = (todoList = [], action) => {
   if (action.type === 'ADD_TODO') {
-    console.log(action)
-    // console.log(todoInfo.todo)
-
     const updatedArray = [...action.todoArray]
     updatedArray.push(action.todo)
+    return updatedArray
+  } 
+  if (action.type === 'DELETE_TODO') {
+    console.log(action.index)
+    const updatedArray = action.todoArray.filter((el, i) => i !== action.index)
     console.log(updatedArray)
     return updatedArray
   }

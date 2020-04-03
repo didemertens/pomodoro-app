@@ -49,3 +49,11 @@ export const addToList = (todo, todoArray) => {
     todoArray: todoArray
   }
 }
+
+export const deleteToList = (index, todoArray) => {
+  return {
+    type: 'DELETE_TODO',
+    index: index,
+    todoArray: todoArray
+  }
+}

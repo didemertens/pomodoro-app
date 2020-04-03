@@ -27,14 +27,6 @@ describe('todo component testing with empty todoList', () => {
     const addButton = findByTestAttr(wrapper, 'add-button').first()
     expect(addButton.length).toBe(1)
   })
-
-  it('adds a to do to list when clicking on add button', () => {
-    const addButton = findByTestAttr(wrapper, 'add-button').first()
-    addButton.simulate('click')
-    const todoList = findByTestAttr(wrapper, 'todo-list')
-    expect(todoList.children().length).toBe(1)
-  })
-
 })
 
 describe('todo component testing with todoList', () => {
@@ -50,6 +42,5 @@ describe('todo component testing with todoList', () => {
     const todoList = findByTestAttr(wrapper, 'todo-list')
     expect(todoList.children().length).toBe(2)
   })
-
 
 })

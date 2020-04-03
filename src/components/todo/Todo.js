@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 
-import { addToList } from '../../actions'
+import { addToList, deleteToList } from '../../actions'
 import { GradientButton } from '../../styles/common/gradientButton'
 
 class Todo extends React.Component {
@@ -15,7 +15,6 @@ class Todo extends React.Component {
   }
 
   render() {
-    console.log(this.props.todoList)
     return (
       <div data-test="todo-component">
         <h1>To do:</h1>
@@ -27,21 +26,34 @@ class Todo extends React.Component {
             :
             <ul data-test="todo-list">
               {this.props.todoList.map((todo, index) => (
-                <li key={index}>{todo}</li>
+                <li key={index}>
+                  {todo}
+                  <button
+                    data-test="delete-button"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      this.props.deleteToList(index, this.props.todoList)
+                    }}
+                  >
+                    Delete
+                  </button>
+                </li>
               ))}
             </ul>
           }
         </div>
-        <form onSubmit={this.handleSubmit}
+        <form 
+        // onSubmit={this.handleSubmit}
           >
           <input type="text" ref={ref => this.userEntry = ref}/>
-          <button
+          <GradientButton
+            size="large"
+            onClick={this.handleSubmit}
             data-test="add-button"
-            >
-              Add
-          </button>
+          >
+            Add
+          </GradientButton>
         </form>
-          
       </div>
     )
 
@@ -54,10 +66,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-
 export default connect
   (mapStateToProps,
     {
-      addToList
+      addToList,
+      deleteToList
     })
   (Todo)
