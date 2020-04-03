@@ -53,7 +53,10 @@ class Todo extends React.Component {
         <form 
           onSubmit={this.handleSubmit}
           >
-          <Input type="text" color="secondary" inputRef={ref => this.userEntry = ref}/>
+          <Input 
+          type="text" 
+          color="secondary" 
+          inputRef={ref => this.userEntry = ref}/>
           <button 
             className="todo-button--add"
             data-test="add-button"

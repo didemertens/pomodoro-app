@@ -19,14 +19,16 @@ body {
   align-items: center;
 }
 
-.app-main-title {
-  min-width: 98.75vw;
-  padding: 9px;
-  max-height: 6vh;
-  font-weight: 800;
-  color: white;
-  text-transform: uppercase;
+.app-main-header-color {
+  min-width: 100vw;
+  max-height: 9vh;
   background:#FF4E50;
+
+  .app-main-title {
+    padding: 9px;
+    color: white;
+    text-transform: uppercase;
+  }
 }
 
 .app-pomo-amount {

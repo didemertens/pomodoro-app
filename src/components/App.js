@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid, Paper } from '@material-ui/core'
+import { Grid, Paper, Typography } from '@material-ui/core'
 import { Animated } from 'react-animated-css'
 
 import '../styles/main.scss'
@@ -13,7 +13,9 @@ const App = (props) => {
     <Grid 
     container 
     className="app-outer-container">
-      <h1 className="app-main-title">Pomochore</h1>
+      <div className="app-main-header-color">
+        <Typography variant="h4" className="app-main-title">Pomochore</Typography>
+      </div>
       <Grid
         container 
       >
