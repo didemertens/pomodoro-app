@@ -4,13 +4,13 @@ import { shallow } from 'enzyme'
 import Todo from './Todo'
 import { findByTestAttr, storeFactory } from '../../test/testUtils'
 
-describe('break timer testing', () => {
-  const initialState = {}
+describe('todo component testing with empty todoList', () => {
+  let initialState = { todoList: [] }
   let store, wrapper
 
   beforeEach(()=>{
     store = storeFactory(initialState)
-    wrapper = shallow(<Todo store={store} />)
+    wrapper = shallow(<Todo store={store} />).dive().dive()
   })
 
   it('renders without error', () => {
@@ -23,22 +23,33 @@ describe('break timer testing', () => {
     expect(todoList.children().length).toBe(0)
   })
 
-  it('renders a list of to dos when in array', () => {
-    const todoList = findByTestAttr(wrapper, 'todo-list')
-    expect(todoList.length).toBe(2)
-  })
-
   it('renders an add button', () => {
     const addButton = findByTestAttr(wrapper, 'add-button').first()
     expect(addButton.length).toBe(1)
   })
 
-
   it('adds a to do to list when clicking on add button', () => {
     const addButton = findByTestAttr(wrapper, 'add-button').first()
     addButton.simulate('click')
     const todoList = findByTestAttr(wrapper, 'todo-list')
-    expect(todoList.length).toBe(3)
+    expect(todoList.children().length).toBe(1)
   })
+
+})
+
+describe('todo component testing with todoList', () => {
+  let initialState = { todoList: ['test1', 'test2'] }
+  let store, wrapper
+
+  beforeEach(()=>{
+    store = storeFactory(initialState)
+    wrapper = shallow(<Todo store={store} />).dive().dive()
+  })
+
+  it('renders a list of to dos when in array', () => {
+    const todoList = findByTestAttr(wrapper, 'todo-list')
+    expect(todoList.children().length).toBe(2)
+  })
+
 
 })

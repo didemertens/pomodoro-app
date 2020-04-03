@@ -42,9 +42,10 @@ export const setBreakTime = (breakOver) => {
 } 
 
 // FOR TODO LIST
-export const addToList = (todo) => {
+export const addToList = (todo, todoArray) => {
   return {
     type: 'ADD_TODO',
-    payload: todo
+    todo: todo,
+    todoArray: todoArray
   }
 }

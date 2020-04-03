@@ -46,11 +46,17 @@ const breakOverReducer = (breakOver = false, action) => {
 }
 
 // FOR TODO
-const todoReducer = (todo = [], action) => {
+const todoReducer = (todoList = [], action) => {
   if (action.type === 'ADD_TODO') {
-    todo.push(action.payload)
+    console.log(action)
+    // console.log(todoInfo.todo)
+
+    const updatedArray = [...action.todoArray]
+    updatedArray.push(action.todo)
+    console.log(updatedArray)
+    return updatedArray
   }
-  return todo
+  return todoList
 }
 
 export default combineReducers({

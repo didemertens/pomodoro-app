@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 
 import { addToList } from '../../actions'
@@ -6,8 +7,11 @@ import { GradientButton } from '../../styles/common/gradientButton'
 
 class Todo extends React.Component {
 
-  handleAdd = () => {
-    return 'added'
+  handleSubmit = (e) => {
+    e.preventDefault()
+    const input = ReactDOM.findDOMNode(this.userEntry)
+    this.props.addToList(input.value, this.props.todoList)
+    input.value = ''
   }
 
   render() {
@@ -28,15 +32,19 @@ class Todo extends React.Component {
             </ul>
           }
         </div>
-        <GradientButton
-              size="large"
-              data-test="add-button"
-              onClick={this.handleAdd}
+        <form onSubmit={this.handleSubmit}
+          >
+          <input type="text" ref={ref => this.userEntry = ref}/>
+          <button
+            data-test="add-button"
             >
               Add
-            </GradientButton>
+          </button>
+        </form>
+          
       </div>
     )
+
   }
 }
 
