@@ -16,10 +16,6 @@ class Todo extends React.Component {
     input.value = ''
   }
 
-  // handleCheckbox = () => {
-  //   this.props.checkTodo(index, true, this.props.todoList)
-  // }
-
   render() {
     return (
       <div data-test="todo-component">
@@ -67,7 +63,6 @@ class Todo extends React.Component {
         </form>
       </div>
     )
-
   }
 }
 
