@@ -42,10 +42,13 @@ export const setBreakTime = (breakOver) => {
 } 
 
 // FOR TODO LIST
-export const addToList = (todo, todoArray) => {
+export const addToList = (text, checked, todoArray) => {
   return {
     type: 'ADD_TODO',
-    todo: todo,
+    todo: {
+      text: text,
+      checked: checked
+    },
     todoArray: todoArray
   }
 }
@@ -54,6 +57,17 @@ export const deleteToList = (index, todoArray) => {
   return {
     type: 'DELETE_TODO',
     index: index,
+    todoArray: todoArray
+  }
+}
+
+export const checkTodo = (index, checked, todoArray) => {
+  return {
+    type: 'CHECK_TODO',
+    todo: {
+      index: index,
+      checked: checked
+    },
     todoArray: todoArray
   }
 }

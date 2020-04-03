@@ -51,12 +51,22 @@ const todoReducer = (todoList = [], action) => {
     const updatedArray = [...action.todoArray]
     updatedArray.push(action.todo)
     return updatedArray
-  } 
-  if (action.type === 'DELETE_TODO') {
-    console.log(action.index)
+  } else if (action.type === 'DELETE_TODO') {
     const updatedArray = action.todoArray.filter((el, i) => i !== action.index)
-    console.log(updatedArray)
     return updatedArray
+  } else if (action.type === 'CHECK_TODO') {
+    return action.todoArray.map((el, i) => {
+      if (i === action.todo.index) {
+        const updatedTodo = {
+          ...el,
+          checked: action.todo.checked
+        }
+        console.log(updatedTodo)
+        return updatedTodo
+      } else {
+        return el
+      }
+    })
   }
   return todoList
 }

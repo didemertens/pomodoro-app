@@ -3,18 +3,22 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined'
 import DeleteIcon from '@material-ui/icons/Delete'
-import { Input } from '@material-ui/core'
+import { Input, Checkbox } from '@material-ui/core'
 
-import { addToList, deleteToList } from '../../actions'
+import { addToList, deleteToList, checkTodo } from '../../actions'
 
 class Todo extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
     const input = ReactDOM.findDOMNode(this.userEntry)
-    this.props.addToList(input.value, this.props.todoList)
+    this.props.addToList(input.value, false, this.props.todoList)
     input.value = ''
   }
+
+  // handleCheckbox = () => {
+  //   this.props.checkTodo(index, true, this.props.todoList)
+  // }
 
   render() {
     return (
@@ -29,7 +33,12 @@ class Todo extends React.Component {
             <ul data-test="todo-list">
               {this.props.todoList.map((todo, index) => (
                 <li key={index}>
-                  {todo}
+                  <Checkbox
+                    checked={todo.checked}
+                    onChange={() => this.props.checkTodo(index, !todo.checked, this.props.todoList)}
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                  />
+                  {todo.text}
                   <button
                     className="todo-button--delete"
                     data-test="delete-button"
@@ -72,6 +81,7 @@ export default connect
   (mapStateToProps,
     {
       addToList,
-      deleteToList
+      deleteToList,
+      checkTodo
     })
   (Todo)
