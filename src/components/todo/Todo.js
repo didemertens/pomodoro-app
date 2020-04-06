@@ -28,8 +28,6 @@ class Todo extends React.Component {
     this.setState({ showDelete: true })
   ]
 
-  // 
-
   handleSubmit = (e) => {
     e.preventDefault()
     const input = ReactDOM.findDOMNode(this.userEntry)
@@ -42,7 +40,6 @@ class Todo extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="todo-main-container" data-test="todo-component">
         <div className="todo-container-header">
@@ -66,18 +63,13 @@ class Todo extends React.Component {
                   Remove a task</MenuItem>
                 <MenuItem onClick={() => {
                   this.handleClose()
+                  this.setState({ showDelete: false })
                   this.props.removeAllTasks()
                 }}
                   >
                     Remove all tasks</MenuItem>
-                {/* <MenuItem onClick={this.handleClose}>Logout</MenuItem> */}
               </Menu>
             </div>
-
-
-
-
-
           </div>
           <div data-test="todo-list-container">
             {
