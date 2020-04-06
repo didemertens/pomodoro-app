@@ -4,12 +4,12 @@
   flex-direction: column;
   justify-content: space-between;
   align-self: flex-end;
-  min-height: 60vh;
+  min-height: 50vh;
 
-  .todo-container-header {
-    height: 50vh;
-    overflow: auto;
-  }
+  // .todo-container-header {
+  //   height: 50vh;
+  //   overflow: auto;
+  // }
 
   .todo-container-header--titlemenu {
     display: flex;

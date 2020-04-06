@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 
 // ! change default minutes to 25 and seconds to 0 later
-
 const minutesReducer = (minutes = 0, action) => {
   if (action.type === 'DECREASE_MINUTES') {
     return action.payload
@@ -16,7 +15,6 @@ const secondsReducer = (seconds = 2, action) => {
   return seconds
 }
 
-// ! Change to false
 const timeUpReducer = (timeUp = false, action) => {
   if (action.type === 'SET_TIMEUP') {
     return action.payload

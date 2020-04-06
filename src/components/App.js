@@ -29,6 +29,7 @@ const App = (props) => {
         container 
       >
         <Grid
+          className="app-grid"
           item md={6}
           container 
           justify = "center"
@@ -51,8 +52,11 @@ const App = (props) => {
                 }
               </div>
             </Paper>
+            <p className="app-pomo-amount">{'🍅'.repeat(props.pomodoros)}</p>
           </Grid>
+
           <Grid
+          className="app-grid"
           item md={6}
           container 
           justify = "center"
@@ -66,7 +70,7 @@ const App = (props) => {
               </div>
             </Paper>
           </Grid>
-          <p className="app-pomo-amount">{'🍅'.repeat(props.pomodoros)}</p>
+          
       </Grid>
     </Grid>
   )

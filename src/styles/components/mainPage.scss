@@ -42,8 +42,11 @@ body {
   font-weight: 500;
 }
 
+.app-grid {
+  margin-top: 30px !important;
+}
+
 .app-todo-container {
-  min-height: 60vh;
   padding: 50px;
   display: flex;
   flex-direction: column;
