@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined'
 import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp'
 import MenuIcon from '@material-ui/icons/Menu'
-import { TextField, Checkbox, Menu, MenuItem, Button } from '@material-ui/core'
+import { TextField, Checkbox, Menu, MenuItem, Button, Box, Typography} from '@material-ui/core'
 
 import { addToList, deleteToList, checkTodo, errorForm, removeAllTasks } from '../../actions'
 
@@ -44,7 +44,7 @@ class Todo extends React.Component {
       <div className="todo-main-container" data-test="todo-component">
         <div className="todo-container-header">
           <div className="todo-container-header--titlemenu">
-            <h1>To do:</h1>
+            <Typography variant="h4">My tasks</Typography>
             <div className="todo-container-header--menu">
               <MenuIcon onClick={this.handleMenu} />
               <Menu
@@ -75,7 +75,7 @@ class Todo extends React.Component {
             {
               this.props.todoList.length === 0
               ?
-              <p>Nothing here!</p>
+              <Box className="todo-list-text--empty" fontWeight="fontWeightLight">Nothing here!</Box>
               :
               <ul className="todo-list" data-test="todo-list">
                 {this.props.todoList.map((todo, index) => (

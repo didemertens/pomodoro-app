@@ -11,7 +11,7 @@ import Todo from './todo/Todo'
 
 /**
   To do:
-  - fix animations in app component
+  - add timer to tab
   - Local storage for todo list
   - Reset everything ? pomodoros and todo list
  **/
@@ -46,7 +46,11 @@ const App = (props) => {
                 }
                 {!props.breakOver && !props.timeUp && 
                 <Animated animationIn="zoomIn" animationInDuration={1000} isVisible={true}>
-                  <p className="app-break-subtitle">👏</p>
+                  <p className="app-break-subtitle">
+                    <span role="img" aria-label="clapping hands">
+                      👏
+                    </span>
+                    </p>
                 </Animated>
                 }
                 {!props.timeUp ?
