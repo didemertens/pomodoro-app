@@ -13,7 +13,6 @@ import Todo from './todo/Todo'
   To do:
   - fix animations in app component
   - Local storage for todo list
-  - Fix overflow of todo list
   - Reset everything ? pomodoros and todo list
  **/
 
@@ -41,8 +40,13 @@ const App = (props) => {
               >
               <div className="app-main-container" data-test="component-app">
               {props.breakOver && 
-                <Animated animationIn="zoomIn"  animationInDuration={1000} isVisible={true}>
+                <Animated animationIn="zoomIn" animationInDuration={1000} isVisible={true}>
                   <p className="app-break-subtitle">Time to get back to work</p>
+                </Animated>
+                }
+                {!props.breakOver && !props.timeUp && 
+                <Animated animationIn="zoomIn" animationInDuration={1000} isVisible={true}>
+                  <p className="app-break-subtitle">👏</p>
                 </Animated>
                 }
                 {!props.timeUp ?
