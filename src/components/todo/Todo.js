@@ -4,14 +4,15 @@ import { connect } from 'react-redux'
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined'
 import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp'
 import MenuIcon from '@material-ui/icons/Menu'
-import { TextField, Checkbox, Menu, MenuItem } from '@material-ui/core'
+import { TextField, Checkbox, Menu, MenuItem, Button } from '@material-ui/core'
 
 import { addToList, deleteToList, checkTodo, errorForm, removeAllTasks } from '../../actions'
 
 class Todo extends React.Component {
   state = {
     menuOpen: false,
-    anchorEl: null
+    anchorEl: null,
+    showDelete: false
   }
 
   handleMenu = (e) => {
@@ -22,6 +23,10 @@ class Todo extends React.Component {
  handleClose = () => {
     this.setState({menuOpen: !this.state.menuOpen})
   }
+
+  showDeleteTaskIcon = () => [
+    this.setState({ showDelete: true })
+  ]
 
   // 
 
@@ -52,13 +57,20 @@ class Todo extends React.Component {
                 open={this.state.menuOpen}
                 onClose={this.handleClose}
               >
+                <MenuItem 
+                onClick={() => {
+                  this.handleClose()
+                  this.showDeleteTaskIcon()
+                }}
+                >
+                  Remove a task</MenuItem>
                 <MenuItem onClick={() => {
                   this.handleClose()
-                  this.props.removeAllTasks()}}
-                  >Remove all tasks</MenuItem>
-
-                {/* <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                <MenuItem onClick={this.handleClose}>Logout</MenuItem> */}
+                  this.props.removeAllTasks()
+                }}
+                  >
+                    Remove all tasks</MenuItem>
+                {/* <MenuItem onClick={this.handleClose}>Logout</MenuItem> */}
               </Menu>
             </div>
 
@@ -90,12 +102,18 @@ class Todo extends React.Component {
                         this.props.deleteToList(index, this.props.todoList)
                       }}
                     >
-                      <DeleteForeverSharpIcon />
+                      {this.state.showDelete && <DeleteForeverSharpIcon />}
                     </button>
                   </li>
                 ))}
               </ul>
             }
+            {this.state.showDelete && <Button 
+            variant="contained" 
+            color="primary"
+            onClick={() => this.setState({ showDelete: false })}
+            >
+              Done</Button>}
           </div>
         </div>
         <form 
