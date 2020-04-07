@@ -72,7 +72,7 @@ const App = (props) => {
           >
             <Paper
               elevation={3}
-            >
+              >
               <div className="app-todo-container">
                 <Todo />
               </div>
