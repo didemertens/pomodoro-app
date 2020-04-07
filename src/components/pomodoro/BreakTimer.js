@@ -23,7 +23,6 @@ class BreakTimer extends React.Component {
         if (seconds === 0) {
           if (minutes === 0) {
             this.props.clickStart(this.props.startTimer)
-            // ! reset time later
             this.props.decreaseMinutes(25)
             this.props.decreaseSeconds(0)
             this.props.setTimeUp(false)

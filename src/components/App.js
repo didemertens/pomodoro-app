@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, Paper, Typography } from '@material-ui/core'
 import { Animated } from 'react-animated-css'
+import { Helmet } from 'react-helmet'
 
 import '../styles/main.scss'
 import Timeup from './pomodoro/Timeup'
@@ -11,13 +12,20 @@ import Todo from './todo/Todo'
 
 /**
   To do:
-  - add timer to tab
   - Local storage for todo list
   - Reset everything ? pomodoros and todo list
+  - Remove all completed tasks
  **/
 
 const App = (props) => {
   return (
+    <>
+    <Helmet>
+      { 
+      props.startTimer &&
+      <title>{`${props.minutes.toString().length <= 1 ? `0${props.minutes}` : props.minutes}:${props.seconds.toString().length <= 1 ? `0${props.seconds}` : props.seconds}`}</title>
+      }
+    </Helmet>
     <Grid 
     container 
     className="app-outer-container">
@@ -81,11 +89,15 @@ const App = (props) => {
           
       </Grid>
     </Grid>
+    </>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
+    startTimer: state.startTimer,
+    minutes: state.minutes,
+    seconds: state.seconds,
     timeUp: state.timeUp,
     pomodoros: state.pomodoros,
     breakOver: state.breakOver
