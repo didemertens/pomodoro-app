@@ -1,68 +1,67 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Pomochore
+This is a website with both a Pomodoro timer and a list of tasks. I'm still building it and am using React and Redux with Enzyme and Jest for testing.
 
-## Available Scripts
+# Building with:
+* React
+* Redux
+* Enzyme
+* Jest
+* Material-UI
 
-In the project directory, you can run:
+# Deployment
+The website is deployed on Heruko and can be found [here](https://pomochore.herokuapp.com/)
 
-### `yarn start`
+# Getting started
+Clone or download the repo. Run `yarn` from the root directory and then run `yarn start`. The project will run on localhost:3000.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Pomodoro timer
+The Pomodoro technique is a time management method created by Francesco Cirillo. It uses a timer which is set to 25 minutes. Before you start, you decide each time what task to work on. After a session (which is called a 'pomodoro' after the tomato-shaped kitchen timer Cirillo used), you get either a short (5 minutes) or long break (30 minutes). This depends on how many sessions you have done. After 4 pomodoros, you get a long break. 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Testing
+I build the Pomodoro timer using test-driven development. Because I'm using Redux, I first created a fake Store to test all of the components. Most tests were straight forward, but because I'm using intervals for the timer I did run into a few problems. In the end, I was able to test the timers with Jest's timer mocks. Jest made it possible to for example test whether the time actually decreases when the start button has been clicked:
 
-### `yarn test`
+```
+it('time decreases by 1 second when clicking start button', () => {
+    // find button and click
+    let startButton = findByTestAttr(wrapper, 'start-button').first()
+    startButton.simulate('click')
+  
+    // check value after 1 second on display
+    act(() => jest.advanceTimersByTime(1000))
+    const timeDisplay = findByTestAttr(wrapper, 'time-display')
+    expect(timeDisplay.text()).toContain('24:59')
+  })
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Task list
+Users can add tasks to their lists and mark these as done as well. I created one reducer function to perform all of the actions. 
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```
+const todoReducer = (todoList = [], action) => {
+  if (action.type === 'ADD_TODO') {
+    const updatedArray = [...action.todoArray]
+    updatedArray.push(action.todo)
+    return updatedArray
+  } else if (action.type === 'DELETE_TODO') {
+    const updatedArray = action.todoArray.filter((el, i) => i !== action.index)
+    return updatedArray
+  }  else if (action.type === 'CHECK_TODO') {
+    return action.todoArray.map((el, i) => {
+      if (i === action.todo.index) {
+        const updatedTodo = {
+          ...el,
+          checked: action.todo.checked
+        }
+        return updatedTodo
+      } else {
+        return el
+      }
+    })
+  } else if (action.type === 'REMOVE_ONE_TASK') {
+    return todoList
+  } else if (action.type === 'REMOVE_ALL_TASKS') {
+    return []
+}
+  return todoList
+}
+```

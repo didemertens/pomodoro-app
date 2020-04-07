@@ -20,9 +20,6 @@ class PomTimer extends React.Component {
             this.props.setTimeUp(true)
             this.props.clickStart(this.props.startTimer)
             this.props.setPomodoros(this.props.pomodoros + 1)
-            // ! change time later
-            // this.props.decreaseMinutes(0)
-            // this.props.decreaseSeconds(0)
             clearInterval(this.timeInterval)
           } else {
             this.props.decreaseMinutes(this.props.minutes - 1)

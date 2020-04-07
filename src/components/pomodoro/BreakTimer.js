@@ -9,9 +9,7 @@ class BreakTimer extends React.Component {
     if ((this.props.pomodoros + 1) % 4 === 0) {
       this.props.decreaseMinutes(30)
     } else {
-      // ! remove seconds later
-      // this.props.decreaseMinutes(5)
-      this.props.decreaseSeconds(2)
+      this.props.decreaseMinutes(5)
     }
   }
 
@@ -26,8 +24,8 @@ class BreakTimer extends React.Component {
           if (minutes === 0) {
             this.props.clickStart(this.props.startTimer)
             // ! reset time later
-            this.props.decreaseMinutes(0)
-            this.props.decreaseSeconds(2)
+            this.props.decreaseMinutes(25)
+            this.props.decreaseSeconds(0)
             this.props.setTimeUp(false)
             this.props.setBreakTime(true)
             clearInterval(this.timeInterval)
