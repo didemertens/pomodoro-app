@@ -20,7 +20,7 @@ import Todo from './todo/Todo'
 const App = (props) => {
   return (
     <>
-    <Helmet>
+    <Helmet defer={false}>
       { 
       props.startTimer &&
       <title>{`${props.minutes.toString().length <= 1 ? `0${props.minutes}` : props.minutes}:${props.seconds.toString().length <= 1 ? `0${props.seconds}` : props.seconds}`}</title>
