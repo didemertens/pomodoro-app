@@ -33,7 +33,7 @@ class PomTimer extends React.Component {
   }
 
   handleReset = () => {
-    // ! change time later
+    if (this.props.minutes === 25 && this.props.seconds === 0) return
     this.props.decreaseMinutes(25)
     this.props.decreaseSeconds(0)
     this.props.clickStart(this.props.startTimer)
