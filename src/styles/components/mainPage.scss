@@ -13,6 +13,7 @@ body {
 .app-main-container {
   min-height: 60vh;
   padding: 55px;
+  margin-top: -50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,4 +51,9 @@ body {
   padding: 50px;
   display: flex;
   flex-direction: column;
+}
+
+.app-help-icon {
+  color: #FF8E53;
+  padding: 10px;
 }
