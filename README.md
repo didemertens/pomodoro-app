@@ -43,7 +43,7 @@ it('time decreases by 1 second when clicking start button', () => {
 ```
 
 # Task list
-Users can add tasks to their lists and mark these as done as well. I created one reducer function to perform all of the actions. For example, to add a task to the list, I created a copy of the to do list, and pushed the new task to that copy:
+Users can add tasks to their list and mark these as done when they're finished. I created one reducer function to perform all of the actions. For example, to add a task to the list, I created a copy of the to do list and then pushed the new task to that copy:
 
 ```javascript
 const todoReducer = (todoList = [], action) => {
@@ -60,7 +60,7 @@ It's also possible to remove one or all tasks via the menu in the task list cont
 
 <img src="src/assets/removetask-scr.png" alt="Remove task" height="300"/>
 
-All of the tasks on the list are saved in local storage and shown when the user returns to the website. Each time the component is updated, which happens when a task is created or removed, the current list of tasks is saved in local storage. When the component mounts, so when the website renders for the first time, I check if there is an array with items in local storage and then set the state of the to do list equal to that array:
+All of the tasks on the list are saved in local storage and shown when the user returns to the website. Each time the component is updated, which happens when a task is created or removed, the current list of tasks is saved in local storage. When the component mounts, so when the website renders for the first time, I check if there is an array with items in local storage and then set the state of the task list to equal to that array:
 
 ```javascript
 componentDidMount() {
