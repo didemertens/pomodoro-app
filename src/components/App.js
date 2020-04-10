@@ -1,21 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid, Paper, Typography } from '@material-ui/core'
+import { Grid, Paper, Typography, Button } from '@material-ui/core'
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
 import { Animated } from 'react-animated-css'
 import { Helmet } from 'react-helmet'
+import ReactTooltip from 'react-tooltip'
 
 import '../styles/main.scss'
 import Timeup from './pomodoro/Timeup'
 import PomTimer from './pomodoro/PomTimer'
 import Todo from './todo/Todo'
-
-
-/**
-  To do:
-  - Local storage for todo list
-  - Reset everything ? pomodoros and todo list
-  - Remove all completed tasks
- **/
 
 const App = (props) => {
   return (
@@ -46,6 +40,14 @@ const App = (props) => {
             <Paper
               elevation={3}
               >
+              <HelpOutlineIcon className="app-help-icon" data-tip data-for='global' />
+              <ReactTooltip place='right' effect='solid' id='global' aria-haspopup='true' type='warning'>
+                <p>Set a task and start the timer. After 25 minutes you'll get a short or long break, 
+                  <br />
+                  depending on how many times you've completed a session (called 'pomodoro').</p>
+                <p>Your task list will be saved so you can use it next time you visit Pomochore.</p>
+                <p>Happy working!</p>
+              </ReactTooltip>
               <div className="app-main-container" data-test="component-app">
               {props.breakOver && 
                 <Animated animationIn="zoomIn" animationInDuration={1000} isVisible={true}>
@@ -72,11 +74,11 @@ const App = (props) => {
           </Grid>
 
           <Grid
-          className="app-grid"
-          item md={6}
-          container 
-          justify = "center"
-          alignItems="center"
+            className="app-grid"
+            item md={6}
+            container 
+            justify = "center"
+            alignItems="center"
           >
             <Paper
               elevation={3}
