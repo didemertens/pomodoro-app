@@ -84,3 +84,10 @@ export const removeAllTasks = () => {
     type: 'REMOVE_ALL_TASKS'
   }
 }
+
+export const setLocalTodo = (localTodo) => {
+  return {
+    type: 'SET_LOCAL_TODO',
+    todoList: localTodo
+  }
+}

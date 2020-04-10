@@ -6,13 +6,24 @@ import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp'
 import MenuIcon from '@material-ui/icons/Menu'
 import { TextField, Checkbox, Menu, MenuItem, Button, Box, Typography} from '@material-ui/core'
 
-import { addToList, deleteToList, checkTodo, errorForm, removeAllTasks } from '../../actions'
+import { addToList, deleteToList, checkTodo, errorForm, removeAllTasks, setLocalTodo } from '../../actions'
 
 class Todo extends React.Component {
   state = {
     menuOpen: false,
     anchorEl: null,
     showDelete: false
+  }
+
+  componentDidMount() {
+    const localTodo = JSON.parse(localStorage.getItem('todolist'))
+    if (localTodo) {
+      this.props.setLocalTodo(localTodo)
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem('todolist', JSON.stringify(this.props.todoList))
   }
 
   handleMenu = (e) => {
@@ -73,7 +84,7 @@ class Todo extends React.Component {
           </div>
           <div data-test="todo-list-container">
             {
-              this.props.todoList.length === 0
+              this.props.todoList.length === 0 
               ?
               <Box className="todo-list-text--empty" fontWeight="fontWeightLight">Nothing here!</Box>
               :
@@ -100,6 +111,7 @@ class Todo extends React.Component {
                 ))}
               </ul>
             }
+            
             {this.state.showDelete && <Button 
             variant="contained" 
             color="primary"
@@ -146,6 +158,7 @@ export default connect
       deleteToList,
       checkTodo,
       errorForm,
-      removeAllTasks
+      removeAllTasks,
+      setLocalTodo
     })
   (Todo)

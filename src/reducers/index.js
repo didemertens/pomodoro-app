@@ -67,8 +67,11 @@ const todoReducer = (todoList = [], action) => {
     return todoList
   } else if (action.type === 'REMOVE_ALL_TASKS') {
     return []
-}
-  return todoList
+  } else if (action.type === 'SET_LOCAL_TODO') {
+    const updatedArray = action.todoList
+    return updatedArray
+  }
+    return todoList
 }
 
 const formReducer = (errors = false, action) => {
